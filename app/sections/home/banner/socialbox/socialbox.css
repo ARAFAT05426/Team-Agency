@@ -1,0 +1,52 @@
+.earth {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+}
+
+.icon {
+  position: absolute;
+  transition: all 0.3s ease-in-out;
+  cursor: pointer;
+}
+.icon:hover {
+  color: #ff4a17;
+}
+
+.icon-facebook {
+  top: 10%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.icon-twitter {
+  top: 30%;
+  left: 80%;
+  transform: translate(-50%, -50%);
+}
+
+.icon-linkedin {
+  top: 70%;
+  left: 80%;
+  transform: translate(-50%, -50%);
+}
+
+.icon-instagram {
+  top: 90%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.icon-pinterest {
+  top: 70%;
+  left: 20%;
+  transform: translate(-50%, -50%);
+}
+
+.icon-skype {
+  top: 30%;
+  left: 20%;
+  transform: translate(-50%, -50%);
+}

@@ -1,0 +1,22 @@
+.inner-box {
+  perspective: 1000px;
+  transition: all 0.7s ease-in-out;
+}
+
+.inner-box::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0%;
+  width: 0%;
+  height: 100%;
+  background: #FF4A17;
+  transform: translateX(-100%) rotateY(90deg);
+  transition: all 0.7s ease;
+  z-index: -1;
+}
+
+.inner-box:hover::before {
+  width: 100%;
+  transform: translateX(0%) rotateY(0deg);
+}

@@ -1,0 +1,37 @@
+.teamimg {
+  position: relative;
+  overflow: hidden;
+  transition: all 0.7s ease-in-out;
+}
+
+.teamimg:hover .teamimgoverlay {
+  opacity: 25%;
+}
+
+.teamimg::before {
+  content: "";
+  height: 100%;
+  width: 100%;
+  background: linear-gradient(
+    to right,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 255, 255, 0.3) 100%
+  );
+  position: absolute;
+  left: -150%;
+  top: 0;
+  transform: skewX(-25deg);
+  transition: all 0.5s ease-in-out;
+  z-index: 1;
+}
+
+.teamcard:hover .teamimg:before {
+  left: 75%;
+}
+
+.teamcard:hover img {
+  transform: scale(1.05) rotate(2deg);
+}
+.teamcard:hover .teamcontent {
+  transform: translateY(-50px);
+}

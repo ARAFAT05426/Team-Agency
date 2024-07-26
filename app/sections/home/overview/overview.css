@@ -1,0 +1,8 @@
+.svgicon {
+  transition: transform 0.4s;
+  transform-style: preserve-3d;
+}
+
+.group:hover .svgicon {
+  transform: rotateY(360deg);
+}

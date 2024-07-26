@@ -1,0 +1,42 @@
+#checkbox {
+  display: none;
+}
+
+.toggle {
+  position: relative;
+  width: 30px;
+  height: 25px;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  transition-duration: 0.3s;
+}
+
+.bars {
+  width: 85%;
+  height: 3px;
+  border-radius: 5px;
+  transition-duration: 0.3s;
+}
+
+#checkbox:checked + .toggle #bar1 {
+  transform: rotate(45deg);
+  transition-duration: 0.3s;
+  transform-origin: left center;
+}
+
+#checkbox:checked + .toggle #bar2 {
+  transform: rotate(135deg);
+  opacity: 0;
+  transition-duration: 0.3s;
+  transform-origin: center;
+}
+
+#checkbox:checked + .toggle #bar3 {
+  transform: rotate(-45deg);
+  transition-duration: 0.3s;
+  transform-origin: left center;
+}

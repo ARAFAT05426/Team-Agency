@@ -1,0 +1,90 @@
+.routelink {
+  height: 30px;
+  align-items: center;
+  color: #000;
+  text-decoration: none;
+  display: flex;
+  overflow: hidden;
+  position: relative;
+  transition: all 0.3s ease-in-out;
+}
+
+.routelink::after {
+  content: "";
+  width: 0%;
+  height: 3px;
+  border-radius: 20%;
+  background: #ff4a17;
+  position: absolute;
+  bottom: 2.5px;
+  left: 0;
+  transition: all 0.3s ease-in-out;
+}
+
+.mask {
+  position: relative;
+  padding: 0;
+  height: 20px;
+  overflow: hidden;
+}
+
+.link-container {
+  transition: transform 0.4s ease;
+}
+
+.title {
+  display: block;
+  font-size: 20px;
+  line-height: 20px;
+  transition: transform 0.4s ease;
+}
+
+.link-title1 {
+  transform-origin: right center;
+}
+
+.link-title2 {
+  transform-origin: left center;
+  transform: rotateY(90deg);
+}
+
+/* Hover Action */
+.routelink:hover .link-container {
+  transform: translateY(-20px);
+}
+
+.routelink:hover .link-title1 {
+  transform: rotateY(90deg);
+}
+
+.routelink:hover .link-title2 {
+  transform: rotateY(0);
+}
+
+.routelink:hover {
+  color: #ff4a17;
+}
+
+.routelink:hover::after,
+.routelink.active::after {
+  width: 100%;
+}
+
+.routelink.active {
+  color: #ff4a17;
+}
+
+.linksbox {
+  overflow: hidden;
+  perspective: 1000px;
+  position: fixed;
+  inset: 0;
+  width: 0;
+  height: 100vh;
+  transform-style: preserve-3d;
+  transition: all 0.5s ease-in-out;
+  flex-direction: column;
+  align-items: center;
+  padding: 5rem 0;
+  z-index: 50;
+}

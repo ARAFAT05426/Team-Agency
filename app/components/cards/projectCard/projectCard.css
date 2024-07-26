@@ -1,0 +1,38 @@
+.projectimg::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  height: 100%;
+  width: 100%;
+  background-color: rgba(255, 74, 23, 0);
+  opacity: 0;
+  z-index: 1;
+  transition: all 0.5s ease-in-out;
+}
+
+.group:hover .projectimg:before {
+  background-color: rgba(255, 74, 23, 0.3);
+  opacity: 1;
+}
+
+.project {
+  position: relative;
+  overflow: hidden;
+}
+
+.project::after {
+  content: "";
+  width: 0;
+  height: 100%;
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  transform: translateX(-50%);
+  z-index: -1;
+  background-color: #ff4a17;
+  transition: width 0.5s ease-in-out;
+}
+
+.group:hover .project::after {
+  width: 100%;
+}
