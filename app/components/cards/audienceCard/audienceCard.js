@@ -1,4 +1,4 @@
-import "./AudienceCard.css";
+import "./audienceCard.css";
 import Image from "next/image";
 
 const AudienceCard = ({ icon, subicon, title, subtitle }) => {
