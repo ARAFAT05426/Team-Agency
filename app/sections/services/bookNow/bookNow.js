@@ -11,6 +11,7 @@ import {
   AiOutlineUser,
 } from "react-icons/ai";
 import { useState } from "react";
+import Image from "next/image";
 const BookNow = () => {
   const [isFocused, setIsFocused] = useState(false);
   return (
@@ -79,16 +80,20 @@ const BookNow = () => {
           <FaQuestion className="text-5xl text-white h-full w-full p-7 border border-dotted rounded-full" />
         </div>
         <div className="absolute bottom-10 hidden lg:flex w-[25rem]  lg:h-[25rem] bg-primary rounded-3xl z-[-1] rotate-[-25deg]" />
-        <img src="/services/form-image.png" alt="" className="max-w-full" />
-        <img
+        <Image width={100} height={75} src="/services/form-image.png" alt="" className="max-w-full" />
+        <Image
           className="absolute bottom-1/4 rounded-md -left-16 max-w-xs"
           src="/services/author-2.png"
           alt=""
+          height={50}
+          width={75} 
         />
-        <img
+        <Image
           className="absolute -bottom-10 rounded-md -right-10 max-w-xs"
           src="/services/author-3.png"
           alt=""
+          height={50}
+          width={75}    
         />
       </div>
     </div>

@@ -8,6 +8,7 @@ import { BsArrowRight } from "react-icons/bs";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import { Navigation } from "swiper/modules";
+import Image from "next/image";
 
 const OurServices = () => {
   const services = [
@@ -90,16 +91,20 @@ const OurServices = () => {
               <div className="group flex flex-col gap-6 max-w-sm h-[30rem] bg-gray-100 px-10 py-12 rounded">
                 <div className="flex flex-col flex-1">
                   <div className="relative h-20 w-20 p-3 bg-[rgba(255,74,23,0.10)] group-hover:bg-primary rounded mb-5 transition-all duration-500">
-                    <img
+                    <Image
                       className="scale-100 opacity-100 rotate-0 group-hover:-rotate-90 group-hover:scale-0 group-hover:opacity-0 transition-all duration-500 ease-in-out"
                       src={service?.icon}
                       alt=""
+                      height={50}
+                      width={50}
                     />
                     {/* Hover state */}
-                    <img
+                    <Image
                       className="absolute inset-2 scale-0 opacity-0 rotate-90 group-hover:rotate-0 group-hover:scale-100 group-hover:opacity-100 transition-all duration-500 ease-in-out"
                       src={service?.subicon}
                       alt=""
+                      height={50}
+                      width={50}
                     />
                   </div>
                   <h2 className="text-3xl font-teko font-semibold mb-2">

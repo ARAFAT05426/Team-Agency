@@ -2,16 +2,19 @@
 import { BsArrowRight } from "react-icons/bs";
 import Link from "next/link";
 import PrimaryButton from "./components/buttons/primaryButton/primaryButton";
+import Image from "next/image";
 const NotFound = () => {
   const goBack = () => {
     window.history.back();
   };
   return (
     <div className="min-h-screen flex flex-col gap-5 items-center justify-center px-4">
-      <img
+      <Image
         src="/common/error.png"
         alt="Error illustration"
         className="max-w-full h-auto"
+        width={750}
+        height={500}
       />
       <h1 className="font-teko text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-semibold text-center">
         Oops... It looks like you’re lost!
