@@ -1,5 +1,8 @@
+"use client";
 import Image from "next/image";
+import { motion } from "framer-motion";
 import "./overview.css";
+
 const Overview = () => {
   const overviews = [
     {
@@ -27,6 +30,32 @@ const Overview = () => {
         "Lorem ipsum dolor sit amet consectetur adipisicing elit. Fuga quis molestias magnam eos at? Recusandae.",
     },
   ];
+
+  const containerVariants = {
+    hidden: { opacity: 0, y: 50 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.6,
+        staggerChildren: 0.2,
+        ease: "easeOut",
+      },
+    },
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, scale: 0.9 },
+    visible: { 
+      opacity: 1, 
+      scale: 1,
+      transition: { 
+        duration: 0.4, 
+        ease: "easeOut" 
+      },
+    },
+  };
+
   return (
     <div className="relative bg-secondary py-5 min-h-full lg:min-h-72 flex items-center">
       <Image
@@ -36,10 +65,16 @@ const Overview = () => {
         width={750}
         height={500}
       />
-      <div className="container mx-auto grid gap-3 grid-cols-1 md:grid-cols-2 lg:grid-cols-4">
+      <motion.div
+        className="container mx-auto grid gap-3 grid-cols-1 md:grid-cols-2 lg:grid-cols-4"
+        variants={containerVariants}
+        initial="hidden"
+        animate="visible"
+      >
         {overviews?.map((overview, i) => (
-          <div
+          <motion.div
             key={i}
+            variants={itemVariants}
             className={`group p-5 text-white/75 hover:text-white transition-all duration-300 space-y-3 ${
               i < 3 ? "border-r-0 lg:border-r" : ""
             } border-r-slate-600 z-[1]`}
@@ -58,10 +93,11 @@ const Overview = () => {
               {overview?.title}
             </h1>
             <p className="pr-3 font-thin text-sm">{overview?.description}</p>
-          </div>
+          </motion.div>
         ))}
-      </div>
+      </motion.div>
     </div>
   );
 };
+
 export default Overview;

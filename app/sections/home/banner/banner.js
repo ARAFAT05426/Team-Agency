@@ -21,8 +21,6 @@ const Banner = () => {
       }}
     >
       <StaticNavbar />
-
-      {/* Decorative Element */}
       <motion.div
         className="hidden lg:flex absolute w-64 h-64 bg-primary rounded-3xl items-center justify-center -left-36 inset-y-1/4"
         initial={{ opacity: 0, y: 20 }}
@@ -67,7 +65,7 @@ const Banner = () => {
             </motion.h1>
             <div className="flex items-center gap-x-5">
               <motion.button
-                className="text-lg lg:text-2xl px-3 py-4 lg:px-5 rounded-sm bg-white/25 backdrop-blur-md text-white font-semibold flex items-center gap-x-2 transition-all duration-300 hover:bg-white hover:text-primary"
+                className="text-lg lg:text-2xl px-3 py-3 lg:py-4 lg:px-5 rounded-sm bg-white/25 backdrop-blur-md text-white font-semibold flex items-center gap-x-2 transition-all duration-300 hover:bg-white hover:text-primary"
                 initial="hidden"
                 animate="visible"
                 variants={revealVariants}

@@ -1,19 +1,18 @@
 "use client";
+import NavToggle from "../../buttons/navToggle/navToggle";
 import useScrollY from "@/lib/hooks/ui/useScrollY";
+import Links from "../links/links";
+import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
-import Links from "../links/links";
-import NavToggle from "../../buttons/navToggle/navToggle";
 
 const StickyNavbar = () => {
   const [act, setAct] = useState(false);
   const scrollY = useScrollY();
-
   return (
     <nav
       className={`${
-        scrollY > 100 ? "lg:h-20 opacity-100" : "h-0 opacity-0"
+        scrollY > 100 ? "h-20 opacity-100" : "h-0 opacity-0"
       } bg-white w-full fixed inset-x-0 top-0 z-50 overflow-y-hidden transition-all duration-500 shadow-lg`}
     >
       <div className="flex items-center justify-between w-full lg:w-container mx-auto px-1 py-3">
@@ -26,7 +25,7 @@ const StickyNavbar = () => {
           />
         </Link>
         <Links act={act} setAct={setAct} />
-        <NavToggle isOpen={act} onClick={() => setAct(!act)} />
+        <NavToggle isOpen={act} onClick={setAct} />
       </div>
     </nav>
   );

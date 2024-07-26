@@ -8,9 +8,11 @@ import { LiaBlogSolid } from "react-icons/lia";
 import { usePathname } from "next/navigation";
 import { RxHome } from "react-icons/rx";
 import { useState } from "react";
+
 const Sidebar = () => {
   const path = usePathname();
   const [act, setAct] = useState(false);
+
   const dashboardLinks = [
     {
       icon: RxHome,
@@ -33,10 +35,11 @@ const Sidebar = () => {
       title: "Profile",
     },
   ];
+
   return (
     <nav>
       <HiOutlineBars3
-      key={5}
+        key={5}
         onClick={() => setAct(!act)}
         className={`fixed flex lg:hidden text-3xl left-2 top-2 ${
           act ? "rotate-[360deg]" : "rotate-0"
@@ -78,4 +81,5 @@ const Sidebar = () => {
     </nav>
   );
 };
+
 export default Sidebar;

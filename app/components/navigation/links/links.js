@@ -7,14 +7,14 @@ import "./link.css";
 
 const Links = ({ act, setAct }) => {
   const path = usePathname();
-
+  
   const largeDeviceVariants = {
     hidden: { opacity: 0, y: 20 },
     visible: (i) => ({
       opacity: 1,
       y: 0,
       transition: {
-        delay: i * 0.1,
+        delay: i * 0.2,
         duration: 0.3,
       },
     }),
@@ -69,14 +69,26 @@ const Links = ({ act, setAct }) => {
       <AnimatePresence>
         {act && (
           <motion.div
-            className="linksbox bg-white/95 flex lg:hidden gap-5 font-semibold font-teko text-xl"
-            initial={{ opacity: 0, width: 0, transform: "translateX(100%) rotateY(-90deg)" }}
-            animate={{ opacity: 1, width: '75vw', transform: "translateX(0%) rotateY(0deg)" }}
-            exit={{ opacity: 0, width: 0, transform: "translateX(100%) rotateY(135deg)" }}
-            transition={{ 
+            className="linksbox bg-white/95 flex lg:hidden gap-3 font-semibold font-teko text-xl z-50"
+            initial={{
+              opacity: 0,
+              width: 0,
+              transform: "translateX(100%) rotateY(-90deg)",
+            }}
+            animate={{
+              opacity: 1,
+              width: "75vw",
+              transform: "translateX(0%) rotateY(0deg)",
+            }}
+            exit={{
+              opacity: 0,
+              width: 0,
+              transform: "translateX(100%) rotateY(135deg)",
+            }}
+            transition={{
               opacity: { duration: 0.7 },
               width: { duration: 0.1, ease: "easeInOut" },
-              transform: { duration: 0.7, ease: "easeInOut" }
+              transform: { duration: 0.7, ease: "easeInOut" },
             }}
           >
             {routelinks?.map((routelink, i) => (
