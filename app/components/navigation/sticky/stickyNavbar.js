@@ -5,10 +5,18 @@ import Links from "../links/links";
 import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 const StickyNavbar = () => {
   const [act, setAct] = useState(false);
   const scrollY = useScrollY();
+  const pathname = usePathname();
+  const isNotUserLayout =
+    pathname.startsWith("/dashboard") || pathname.startsWith("/auth");
+
+  if (isNotUserLayout) {
+    return null;
+  }
   return (
     <nav
       className={`${

@@ -1,7 +1,7 @@
-import "./primaryButton.css"
+import "./primaryButton.css";
 const PrimaryButton = ({ text, href, className = "", children, size }) => {
   return (
-    <div
+    <button
       className={`primarybutton ${className || "rounded-md"} ${
         size || "text-lg lg:text-2xl"
       } font-semibold font-teko uppercase px-3 lg:px-5 py-1 hover:text-primary`}
@@ -9,7 +9,7 @@ const PrimaryButton = ({ text, href, className = "", children, size }) => {
     >
       {text}
       {children}
-    </div>
+    </button>
   );
 };
 export default PrimaryButton;

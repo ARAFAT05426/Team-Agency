@@ -8,11 +8,13 @@ import { LiaBlogSolid } from "react-icons/lia";
 import { usePathname } from "next/navigation";
 import { RxHome } from "react-icons/rx";
 import { useState } from "react";
+import { signOut, useSession } from "next-auth/react";
 
 const Sidebar = () => {
   const path = usePathname();
   const [act, setAct] = useState(false);
-
+  const user = useSession()
+  console.log(user);
   const dashboardLinks = [
     {
       icon: RxHome,
@@ -73,10 +75,10 @@ const Sidebar = () => {
             </Link>
           ))}
         </div>
-        <div className="flex items-center gap-2 font-teko font-bold cursor-pointer">
+        <button onClick={() =>signOut()} className="flex items-center gap-2 font-teko font-bold cursor-pointer">
           <FaSignOutAlt className="text-xl" />
           Log Out
-        </div>
+        </button>
       </aside>
     </nav>
   );

@@ -5,6 +5,7 @@ import { useState } from "react";
 import "swiper/css";
 import { Navigation } from "swiper/modules";
 import { GiHorseHead } from "react-icons/gi";
+import { Fade, Zoom } from "react-awesome-reveal";
 const Gallery = () => {
   const images = [
     {
@@ -104,29 +105,37 @@ const Gallery = () => {
               height={500}
             />
             {act === i ? (
-              <div
-                className="h-20 lg:h-36 bg-white w-[90%] lg:w-3/5 absolute bottom-4 inset-x-[5%] lg:inset-x-[20%] flex items-center justify-center"
-                style={{
-                  clipPath:
-                    "polygon(5% 0, 95% 0, 100% 50%, 95% 100%, 5% 100%, 0% 50%)",
-                }}
-              >
-                <div className="group flex px-5 py-5 items-center">
-                  <div className="flex flex-col">
-                    <h1 className="font-teko text-xl lg:text-3xl font-semibold text-primary">
-                      {image?.title}
-                    </h1>
-                    <p className="text-xs lg:text-base max-w-xs opacity-75">
-                      {image?.description}
-                    </p>
-                  </div>
-                  <div className="p-1 border border-dotted border-primary rounded-full ml-2">
-                    <div className="border border-dotted p-3 bg-primary rounded-full">
-                      <GiHorseHead className="text-2xl lg:text-4xl text-white" />
+              <Fade duration={500} delay={200}>
+                <div
+                  className="h-20 lg:h-36 bg-white w-[90%] lg:w-3/5 absolute bottom-4 inset-x-[5%] lg:inset-x-[20%] flex items-center justify-center"
+                  style={{
+                    clipPath:
+                      "polygon(5% 0, 95% 0, 100% 50%, 95% 100%, 5% 100%, 0% 50%)",
+                  }}
+                >
+                  <div className="group flex px-5 py-5 items-center">
+                    <div className="flex flex-col">
+                      <Fade duration={500} delay={300}>
+                        <h1 className="font-teko text-xl lg:text-3xl font-semibold text-primary">
+                          {image?.title}
+                        </h1>
+                      </Fade>
+                      <Fade duration={500} delay={400}>
+                        <p className="text-xs lg:text-base max-w-xs opacity-75">
+                          {image?.description}
+                        </p>
+                      </Fade>
                     </div>
+                    <Zoom duration={500} delay={500}>
+                      <div className="p-1 border border-dotted border-primary rounded-full ml-2">
+                        <div className="border border-dotted p-3 bg-primary rounded-full">
+                          <GiHorseHead className="text-2xl lg:text-4xl text-white" />
+                        </div>
+                      </div>
+                    </Zoom>
                   </div>
                 </div>
-              </div>
+              </Fade>
             ) : (
               <div className="absolute inset-0 bg-[#05061C] bg-opacity-50 rounded-lg swiper-slide-shadow" />
             )}

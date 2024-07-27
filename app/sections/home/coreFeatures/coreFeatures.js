@@ -1,6 +1,9 @@
+"use client";
 import Heading from "@/app/components/header/heading/heading";
 import Image from "next/image";
 import { IoIosArrowRoundForward } from "react-icons/io";
+import { Fade, Zoom } from "react-awesome-reveal";
+
 const CoreFeatures = () => {
   const cores = [
     {
@@ -11,17 +14,18 @@ const CoreFeatures = () => {
     },
     {
       icon: "/icons/feature-2.png",
-      title: "Business Planning",
+      title: "Market Analysis",
       description:
-        "Trusted results Business Consulting Unlimited Access. Always Facts. Privacy The Best Resources. Answers.",
+        "Comprehensive insights to guide your strategy. Focused on data-driven results and actionable recommendations.",
     },
     {
       icon: "/icons/feature-3.png",
-      title: "Business Planning",
+      title: "SEO Optimization",
       description:
-        "Trusted results Business Consulting Unlimited Access. Always Facts. Privacy The Best Resources. Answers.",
+        "Effective SEO strategies for better visibility. Tailored solutions to improve your search engine rankings.",
     },
   ];
+
   return (
     <div className="relative w-full py-10 overflow-hidden">
       <Image
@@ -32,19 +36,20 @@ const CoreFeatures = () => {
       />
       <div className="w-full lg:w-container mx-auto text-center space-y-5">
         <div className="flex items-center justify-center">
-          <Heading title={"Core Features"} />
+          <Fade duration={500}>
+            <Heading title={"Core Features"} />
+          </Fade>
         </div>
-        <h1 className="font-teko text-3xl sm:text-5xl md:text-7xl font-semibold">
-          Digital Seo Marketing <br />
-          <span className="text-primary">Solution</span> Process
-        </h1>
+        <Fade duration={500} delay={100}>
+          <h1 className="font-teko text-3xl sm:text-5xl md:text-7xl font-semibold">
+            Digital Seo Marketing <br />
+            <span className="text-primary">Solution</span> Process
+          </h1>
+        </Fade>
         <div className="flex flex-col md:flex-row md:items-center md:justify-between pt-5 space-y-5 md:space-y-0">
           {cores?.map((core, i) => (
-            <>
-              <div
-                key={i}
-                className="group relative flex flex-col items-center gap-3 w-full md:w-auto"
-              >
+            <Zoom key={i} duration={500} delay={200 * i}>
+              <div className="group relative flex flex-col items-center gap-3 w-full md:w-auto">
                 <div className="relative flex items-center justify-center h-40 w-40 mx-auto">
                   <Image
                     className="absolute animate-slow-spin"
@@ -82,11 +87,12 @@ const CoreFeatures = () => {
                   height={20}
                 />
               )}
-            </>
+            </Zoom>
           ))}
         </div>
       </div>
     </div>
   );
 };
+
 export default CoreFeatures;

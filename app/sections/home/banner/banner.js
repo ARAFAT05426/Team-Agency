@@ -5,12 +5,7 @@ import Image from "next/image";
 import StaticNavbar from "@/app/components/navigation/static/staticNavbar";
 import PrimaryButton from "@/app/components/buttons/primaryButton/primaryButton";
 import Socialbox from "./socialbox/socialbox";
-import { motion } from "framer-motion";
-
-const revealVariants = {
-  hidden: { opacity: 0, y: 20 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } },
-};
+import { Fade, Slide } from "react-awesome-reveal";
 
 const Banner = () => {
   return (
@@ -21,58 +16,33 @@ const Banner = () => {
       }}
     >
       <StaticNavbar />
-      <motion.div
-        className="hidden lg:flex absolute w-64 h-64 bg-primary rounded-3xl items-center justify-center -left-36 inset-y-1/4"
-        initial={{ opacity: 0, y: 20 }}
-        animate={{
-          opacity: 1,
-          y: 0,
-          rotate: 45,
-          transition: { duration: 0.6, ease: "easeOut" },
-        }}
-      >
-        <div className="h-56 w-56 m-3 border-2 border-dotted border-white rounded-3xl" />
-      </motion.div>
+
+      <Slide direction="left" duration={600}>
+        <div className="hidden lg:flex absolute w-64 h-64 rotate-45 bg-primary rounded-3xl items-center justify-center -left-36 inset-y-1/4">
+          <div className="h-56 w-56 m-3 border-2 border-dotted border-white rounded-3xl" />
+        </div>
+      </Slide>
 
       {/* Main Content */}
-      <div className="flex flex-col items-center justify-center h-[calc(100vh-175px)]">
-        <motion.div
-          className="w-full lg:w-3/5 mx-auto px-3 lg:px-0 flex items-center justify-between text-primary font-teko space-y-4"
-          initial="hidden"
-          animate="visible"
-          variants={revealVariants}
-        >
-          {/* Text and Buttons */}
-          <div className="space-y-3">
-            <motion.div
-              className="text-2xl font-semibold flex items-center gap-x-2"
-              initial="hidden"
-              animate="visible"
-              variants={revealVariants}
-              transition={{ delay: 0.2 }}
-            >
+      <div className="flex items-center justify-between w-full max-w-7xl mx-auto h-[calc(100vh-175px)] font-teko">
+        {/* Text and Buttons */}
+        <div className="space-y-3 overflow-hidden">
+          <Fade direction="up" duration={600}>
+            <div className="text-2xl text-primary font-semibold flex items-center gap-x-2">
               <DiMagento />
               <h1>Your Trusted Agency</h1>
-            </motion.div>
-            <motion.h1
-              className="text-white text-7xl lg:text-8xl font-semibold"
-              initial="hidden"
-              animate="visible"
-              variants={revealVariants}
-              transition={{ delay: 0.4 }}
-            >
+            </div>
+          </Fade>
+          <Slide direction="left" duration={600} delay={200}>
+            <h1 className="text-white text-7xl lg:text-8xl font-semibold">
               Digital Marketing <br /> Agency
-            </motion.h1>
+            </h1>
+          </Slide>
+          <Fade direction="up" duration={600} delay={400}>
             <div className="flex items-center gap-x-5">
-              <motion.button
-                className="text-lg lg:text-2xl px-3 py-3 lg:py-4 lg:px-5 rounded-sm bg-white/25 backdrop-blur-md text-white font-semibold flex items-center gap-x-2 transition-all duration-300 hover:bg-white hover:text-primary"
-                initial="hidden"
-                animate="visible"
-                variants={revealVariants}
-                transition={{ delay: 0.6 }}
-              >
+              <button className="text-lg lg:text-2xl px-3 py-3 lg:py-4 lg:px-5 rounded-sm bg-white/25 backdrop-blur-md text-white font-semibold flex items-center gap-x-2 transition-all duration-300 hover:bg-white hover:text-primary">
                 Discover More <HiArrowRight size={25} />
-              </motion.button>
+              </button>
               <PrimaryButton
                 text="Learn More"
                 className="before:bg-white bg-primary rounded-sm"
@@ -80,47 +50,38 @@ const Banner = () => {
                 <HiArrowRight size={25} />
               </PrimaryButton>
             </div>
-          </div>
+          </Fade>
+        </div>
 
-          {/* Social Box */}
-          <motion.div
-            initial="hidden"
-            animate="visible"
-            variants={revealVariants}
-            transition={{ delay: 0.8 }}
-          >
+        {/* Social Box */}
+        <Fade direction="up" duration={600} delay={600}>
+          <div>
             <Socialbox />
-          </motion.div>
-        </motion.div>
+          </div>
+        </Fade>
       </div>
 
       {/* Decorative Patterns */}
-      <motion.div
-        className="absolute bottom-0 left-0"
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 1, duration: 0.6, ease: "easeOut" }}
-      >
-        <Image
-          src="/patterns/vector-6.png"
-          alt="Decorative pattern"
-          width={400}
-          height={200}
-        />
-      </motion.div>
-      <motion.div
-        className="absolute bottom-0 left-0"
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 1.2, duration: 0.6, ease: "easeOut" }}
-      >
-        <Image
-          src="/patterns/vector-7.png"
-          alt="Decorative pattern"
-          width={500}
-          height={250}
-        />
-      </motion.div>
+      <Fade className="hidden md:flex" direction="up">
+        <div className="absolute bottom-0 left-0">
+          <Image
+            src="/patterns/vector-6.png"
+            alt="Decorative pattern"
+            width={350}
+            height={200}
+          />
+        </div>
+      </Fade>
+      <Fade className="hidden md:flex" direction="up">
+        <div className="absolute bottom-0 left-0">
+          <Image
+            src="/patterns/vector-7.png"
+            alt="Decorative pattern"
+            width={400}
+            height={250}
+          />
+        </div>
+      </Fade>
     </div>
   );
 };

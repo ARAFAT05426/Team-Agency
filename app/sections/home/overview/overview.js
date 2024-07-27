@@ -1,6 +1,6 @@
 "use client";
 import Image from "next/image";
-import { motion } from "framer-motion";
+import { Fade } from "react-awesome-reveal";
 import "./overview.css";
 
 const Overview = () => {
@@ -31,31 +31,6 @@ const Overview = () => {
     },
   ];
 
-  const containerVariants = {
-    hidden: { opacity: 0, y: 50 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        duration: 0.6,
-        staggerChildren: 0.2,
-        ease: "easeOut",
-      },
-    },
-  };
-
-  const itemVariants = {
-    hidden: { opacity: 0, scale: 0.9 },
-    visible: { 
-      opacity: 1, 
-      scale: 1,
-      transition: { 
-        duration: 0.4, 
-        ease: "easeOut" 
-      },
-    },
-  };
-
   return (
     <div className="relative bg-secondary py-5 min-h-full lg:min-h-72 flex items-center">
       <Image
@@ -65,37 +40,37 @@ const Overview = () => {
         width={750}
         height={500}
       />
-      <motion.div
-        className="container mx-auto grid gap-3 grid-cols-1 md:grid-cols-2 lg:grid-cols-4"
-        variants={containerVariants}
-        initial="hidden"
-        animate="visible"
-      >
+      <div className="container mx-auto grid gap-3 grid-cols-1 md:grid-cols-2 lg:grid-cols-4">
         {overviews?.map((overview, i) => (
-          <motion.div
+          <Fade 
             key={i}
-            variants={itemVariants}
-            className={`group p-5 text-white/75 hover:text-white transition-all duration-300 space-y-3 ${
-              i < 3 ? "border-r-0 lg:border-r" : ""
-            } border-r-slate-600 z-[1]`}
+            direction="up"
+            duration={600}
+            delay={i * 200}
           >
-            <div className="flex items-center justify-between font-teko">
-              <Image
-                className="svgicon p-3 mb-1 bg-white/25 rounded-2xl group-hover:bg-primary group-hover:scale-110 transition-transform duration-300 h-12 w-12"
-                src={overview?.icon}
-                alt=""
-                width={30}
-                height={30}
-              />
-              <span className="text-4xl">0{i + 1}</span>
+            <div
+              className={`group p-5 text-white/75 hover:text-white transition-all duration-300 space-y-3 ${
+                i < 3 ? "border-r-0 lg:border-r" : ""
+              } border-r-slate-600 z-[1]`}
+            >
+              <div className="flex items-center justify-between font-teko">
+                <Image
+                  className="svgicon p-3 mb-1 bg-white/25 rounded-2xl group-hover:bg-primary group-hover:scale-110 transition-transform duration-300 h-12 w-12"
+                  src={overview?.icon}
+                  alt=""
+                  width={30}
+                  height={30}
+                />
+                <span className="text-4xl">0{i + 1}</span>
+              </div>
+              <h1 className="font-teko text-2xl font-semibold group-hover:text-primary transition-all duration-300">
+                {overview?.title}
+              </h1>
+              <p className="pr-3 font-thin text-sm">{overview?.description}</p>
             </div>
-            <h1 className="font-teko text-2xl font-semibold group-hover:text-primary transition-all duration-300">
-              {overview?.title}
-            </h1>
-            <p className="pr-3 font-thin text-sm">{overview?.description}</p>
-          </motion.div>
+          </Fade>
         ))}
-      </motion.div>
+      </div>
     </div>
   );
 };

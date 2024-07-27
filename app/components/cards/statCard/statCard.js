@@ -2,7 +2,7 @@ import { FaArrowDown, FaArrowUp } from "react-icons/fa";
 
 const StatCard = ({ Icon, gradiant, title, value, inc, dec }) => {
   return (
-    <div className={`relative w-full max-w-sm flex shadow-lg border border-opacity-50 rounded-lg px-7 py-5 min-h-40`}>
+    <div className={`relative w-full max-w-sm flex shadow-md border border-opacity-50 rounded-lg px-7 py-5 min-h-40`}>
       <Icon
         className={`absolute -top-5 p-3 text-7xl bg-gradient-to-bl ${gradiant} rounded-xl shadow-lg`}
       />
