@@ -1,10 +1,14 @@
-
+"use client"
 import SignupForm from "@/app/components/form/auth/signupForm";
+import Modal404 from "@/app/components/modal/modal404/modal404";
 import Image from "next/image";
 import Link from "next/link";
+import { useState } from "react";
 
 const SignupPage = () => {
+  const [act, setAct] = useState(false)
   return (
+    <>
     <div
       className="h-screen flex items-center justify-center bg-cover bg-center"
       style={{ backgroundImage: `url("/bg/signup.png")` }}
@@ -34,11 +38,13 @@ const SignupPage = () => {
             <h2 className="text-3xl font-teko font-semibold text-center text-gray-800">
               Create Your Account
             </h2>
-            <SignupForm />
+            <SignupForm setAct={setAct} />
           </div>
         </div>
       </div>
     </div>
+    <Modal404 isOpen={act} setIsOpen={setAct} />
+    </>
   );
 };
 

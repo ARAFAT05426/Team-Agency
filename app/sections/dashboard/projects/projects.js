@@ -1,8 +1,12 @@
+"use client"
+import Modal404 from "@/app/components/modal/modal404/modal404";
 import LinearProgress from "@/app/components/progressbar/linearProgress";
 import Image from "next/image";
+import { useState } from "react";
 import { FaCheck } from "react-icons/fa";
 import { SlOptionsVertical } from "react-icons/sl";
 const Projects = () => {
+  const [isOpen, setOpen] = useState(false)
   const projects = [
     {
       img: "/blogs/news-4.png",
@@ -88,12 +92,13 @@ const Projects = () => {
                 <LinearProgress progress={70} />
               </td>
               <td className="py-3 px-5 font-bold flex justify-center">
-                <SlOptionsVertical />
+                <SlOptionsVertical onClick={() =>setOpen(true)} />
               </td>
             </tr>
           ))}
         </tbody>
       </table>
+      <Modal404 isOpen={isOpen} setIsOpen={setOpen} />
     </div>
   );
 };

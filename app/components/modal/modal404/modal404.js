@@ -11,8 +11,8 @@ const Modal404 = ({ isOpen, setIsOpen }) => {
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           onClick={() => setIsOpen(false)}
-          className="inset-0 bg-slate-900/50 backdrop-blur flex items-center justify-center z-50 cursor-pointer overflow-hidden"
-          style={{position: "fixed"}}
+          className="inset-0 w-full h-full bg-slate-900/50 backdrop-blur flex items-center justify-center z-50 cursor-pointer overflow-hidden"
+          style={{ position: "fixed" }}
         >
           <motion.div
             initial={{ scale: 0, rotate: "12.5deg" }}
