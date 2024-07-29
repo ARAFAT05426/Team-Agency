@@ -19,7 +19,7 @@ const Modal404 = ({ isOpen, setIsOpen }) => {
             animate={{ scale: 1, rotate: "0deg" }}
             exit={{ scale: 0, rotate: "0deg" }}
             onClick={(e) => e.stopPropagation()}
-            className="bg-gradient-to-br from-primary via-orange-600 to-primary text-white p-6 rounded-lg w-full max-w-lg shadow-xl cursor-default relative overflow-hidden"
+            className="bg-gradient-to-br from-primary via-orange-600 to-primary text-white p-6 rounded-lg w-full max-w-lg shadow-xl cursor-default relative overflow-hidden flex flex-col items-center"
           >
             <FiAlertCircle className="text-white/10 rotate-12 text-[250px] absolute z-0 -top-24 -left-24" />
             <h1 className="text-3xl font-teko font-semibold mb-4 text-center">
@@ -29,13 +29,13 @@ const Modal404 = ({ isOpen, setIsOpen }) => {
               The feature you are trying to access is currently not available.
               We are working hard to bring it to you soon. Please check back
               later or contact support for more information.
-            </p>
-            <h1
+            </p> 
+            <button
               onClick={() => setIsOpen(false)}
               className="bg-white hover:bg-slate-100 px-4 py-2 text-primary font-semibold font-teko text-xl rounded text-center w-fit mx-auto cursor-pointer"
             >
               Understood!
-            </h1>
+            </button>
             <BiSolidError className="text-white/10 rotate-12 text-[250px] absolute z-0 -bottom-24 -right-24" />
           </motion.div>
         </motion.div>

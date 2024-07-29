@@ -3,7 +3,6 @@ import TypePassword from "@/app/components/form/typePassword/typePassword";
 import { FaFacebookF, FaGoogle, FaTwitter } from "react-icons/fa";
 import TypeText from "@/app/components/form/typeText/typeText";
 import { AiOutlineMail, AiOutlineUser } from "react-icons/ai";
-import Modal404 from "../../modal/modal404/modal404";
 import { signIn, useSession } from "next-auth/react";
 import axiosCommon from "@/lib/axios/axiosCommon";
 import { useRouter } from "next/navigation";
@@ -28,45 +27,61 @@ const SignupForm = ({ setAct }) => {
       email: e.target.email.value,
       password: e.target.password.value,
     };
+
     try {
-      const { data } = await axiosCommon.post("/auth/signup/api", newUser);
-      if (data.data.insertedId) {
-        const response = await signIn("credentials", {
+      const response = await toast.promise(
+        await axiosCommon.post("/auth/signup/api", newUser),
+        {
+          loading: "Signing up...",
+          success: "Sign up successful!",
+          error: "Sign up failed. Please try again.",
+        }
+      );
+
+      if (response.data?.insertedId) {
+        const signInResponse = await signIn("credentials", {
           email: newUser.email,
           password: newUser.password,
           redirect: false,
         });
 
-        if (response.error) {
-          toast.error(response.error);
+        if (signInResponse.error) {
+          toast.error(signInResponse.error);
         } else {
-          toast.success("Sign up successfully!");
           router.push("/dashboard");
           e.target.reset();
         }
       }
     } catch (error) {
       toast.error("Sign up failed. Please try again.");
+      console.error("Sign up failed:", error);
     }
   };
 
   const handleSocialSignIn = async (provider) => {
     try {
-      const response = await signIn(provider, { redirect: false });
-      if (response.error) {
-        toast.error(`Sign in with ${provider} failed. Please try again.`);
-      } else {
-        toast.success(`Sign in with ${provider} successful!`);
+      const response = await toast.promise(
+        await signIn(provider, { redirect: false }), // Prevent page reload
+        {
+          loading: `Signing in with ${provider}...`,
+          success: `Sign in with ${provider} successful!`,
+          error: `Sign in with ${provider} failed. Please try again.`,
+        }
+      );
+
+      if (!response.error) {
         router.push("/dashboard");
+      } else {
+        toast.error(response.error);
       }
     } catch (error) {
       toast.error(`Sign in with ${provider} failed. Please try again.`);
+      console.error(`Sign in with ${provider} failed:`, error);
     }
   };
 
   return (
     <div>
-      <Modal404 />
       <form className="space-y-4" onSubmit={handleSignUp}>
         <TypeText
           placeholder="Username"
@@ -82,13 +97,13 @@ const SignupForm = ({ setAct }) => {
         />
         <TypePassword placeholder="Password" name="password" isRequired />
         <PrimaryButton
-          text={"Sign Up"}
+          text="Sign Up"
           className="bg-primary before:bg-secondary rounded-sm w-full"
         />
         <h1 className="text-sm text-center font-semibold">
           Already have an account?
           <Link
-            href={"/auth/login"}
+            href="/auth/login"
             className="font-bold hover:underline transition-all duration-300 ml-3"
           >
             Login

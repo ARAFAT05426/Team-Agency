@@ -22,7 +22,7 @@ const StatCard = ({ Icon, gradiant, title, value, inc, dec }) => {
           )}
         </div>
         <div className="flex flex-col items-end gap-2 font-teko">
-          <h1 className="text-4xl font-bold">{value}</h1>
+          <h1 className="text-4xl font-teko font-bold opacity-90">{value}</h1>
           <h3 className="font-semibold text-lg mr-[2px] opacity-75">{title}</h3>
         </div>
       </div>

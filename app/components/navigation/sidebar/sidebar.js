@@ -6,15 +6,13 @@ import { HiOutlineBars3 } from "react-icons/hi2";
 import { TbWorldSearch } from "react-icons/tb";
 import { LiaBlogSolid } from "react-icons/lia";
 import { usePathname } from "next/navigation";
+import { signOut } from "next-auth/react";
 import { RxHome } from "react-icons/rx";
 import { useState } from "react";
-import { signOut, useSession } from "next-auth/react";
 
 const Sidebar = () => {
   const path = usePathname();
   const [act, setAct] = useState(false);
-  const user = useSession()
-  console.log(user);
   const dashboardLinks = [
     {
       icon: RxHome,

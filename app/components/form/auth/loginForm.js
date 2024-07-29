@@ -18,40 +18,56 @@ const LoginForm = ({ setAct }) => {
       router.push("/dashboard");
     }
   }, [session, router]);
+
   const handleLogIn = async (e) => {
     e.preventDefault();
     const email = e.target.email.value;
     const password = e.target.password.value;
 
     try {
-      const response = await signIn("credentials", {
-        email,
-        password,
-        redirect: false,
-      });
+      const response = await toast.promise(
+        await signIn("credentials", {
+          email,
+          password,
+          redirect: false,
+        }),
+        {
+          loading: "Logging in...",
+          success: "Logged in successfully!",
+          error: "Login failed. Please try again.",
+        }
+      );
 
-      if (response?.error) {
+      if (response.error) {
         toast.error(response.error);
       } else {
-        toast.success("Logged in successfully!");
         router.push("/dashboard");
       }
     } catch (error) {
       toast.error("An unexpected error occurred. Please try again later.");
+      console.error("Login failed:", error);
     }
   };
 
   const handleSocialLogin = async (provider) => {
     try {
-      const response = await signIn(provider, { redirect: false });
-      if (response?.error) {
-        toast.error(`Sign in with ${provider} failed. Please try again.`);
+      const response = await toast.promise(
+        await signIn(provider, { redirect: false }),
+        {
+          loading: `Signing in with ${provider}...`,
+          success: `Sign in with ${provider} successful!`,
+          error: `Sign in with ${provider} failed. Please try again.`,
+        }
+      );
+
+      if (response.error) {
+        toast.error(response.error);
       } else {
-        toast.success(`Sign in with ${provider} successful!`);
         router.push("/dashboard");
       }
     } catch (error) {
-      toast.error("An unexpected error occurred. Please try again later.");
+      toast.error(`Sign in with ${provider} failed. Please try again.`);
+      console.error(`Sign in with ${provider} failed:`, error);
     }
   };
 

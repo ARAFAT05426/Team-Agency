@@ -1,10 +1,12 @@
+import SalesChart from "@/app/components/charts/salesChart";
 import Projects from "@/app/sections/dashboard/projects/projects";
-import AdminStatistics from "@/app/sections/dashboard/statistics/adminStatistics/adminStatistics";
+import Statistics from "@/app/sections/dashboard/statistics/statistics/statistics";
 
 const Page = () => {
   return (
     <>
-      <AdminStatistics />
+      <Statistics />
+      <SalesChart />
       <Projects />
     </>
   );

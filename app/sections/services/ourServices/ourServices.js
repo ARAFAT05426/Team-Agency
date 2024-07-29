@@ -117,9 +117,9 @@ const OurServices = () => {
             </SwiperSlide>
           ))}
         </Swiper>
-        <div className="hidden lg:flex items-center justify-between absolute -inset-x-5 top-1/2 transform -translate-y-1/2 w-full px-4 lg:px-0">
-          <MdOutlineKeyboardArrowLeft className="prev bg-[rgba(255,74,23,0.10)] cursor-pointer z-10 hover:bg-primary hover:text-white text-4xl lg:text-5xl text-primary p-2 rounded-sm transition-all duration-300 z-20" />
-          <MdOutlineKeyboardArrowRight className="next bg-[rgba(255,74,23,0.10)] cursor-pointer z-10 hover:bg-primary hover:text-white text-4xl lg:text-5xl text-primary p-2 rounded-sm transition-all duration-300 z-20" />
+        <div className="hidden lg:flex items-center justify-between absolute inset-x-0 top-1/2 transform -translate-y-1/2 w-full px-4 lg:px-0">
+          <MdOutlineKeyboardArrowLeft className="prev bg-[rgba(255,74,23,0.10)] cursor-pointerhover:bg-primary hover:text-white text-4xl lg:text-5xl text-primary p-2 rounded-sm transition-all duration-300 z-20" />
+          <MdOutlineKeyboardArrowRight className="next bg-[rgba(255,74,23,0.10)] cursor-pointerhover:bg-primary hover:text-white text-4xl lg:text-5xl text-primary p-2 rounded-sm transition-all duration-300 z-20" />
         </div>
       </div>
     </div>

@@ -39,10 +39,20 @@ const AdminStatistics = () => {
       downPercentage: 2,
     },
   ];
-  return <div className="flex flex-wrap gap-8 items-center">
-    {
-        adminStats?.map((stat, i) =><StatCard key={i} Icon={stat?.icon} title={stat?.title} value={stat?.value} gradiant={stat?.className} inc={stat?.upPercentage} dec={stat?.downPercentage} />)
-    }
-  </div>;
+  return (
+    <div className="flex flex-wrap gap-5 items-center">
+      {adminStats?.map((stat, i) => (
+        <StatCard
+          key={i}
+          Icon={stat?.icon}
+          title={stat?.title}
+          value={stat?.value}
+          gradiant={stat?.className}
+          inc={stat?.upPercentage}
+          dec={stat?.downPercentage}
+        />
+      ))}
+    </div>
+  );
 };
 export default AdminStatistics;

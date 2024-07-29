@@ -54,10 +54,8 @@ const Banner = () => {
         </div>
 
         {/* Social Box */}
-        <Fade direction="up" duration={600} delay={600}>
-          <div>
+        <Fade direction="right" duration={600} delay={600}>
             <Socialbox />
-          </div>
         </Fade>
       </div>
 
