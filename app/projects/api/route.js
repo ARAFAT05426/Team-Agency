@@ -23,14 +23,23 @@ export const GET = async (request) => {
     );
   }
 };
+
 export const POST = async (request) => {
   try {
     const db = await connectDB();
     const projects = db.collection("projects");
     
     const order = await request.json();
-    console.log(order);
-    const result = await projects.insertOne({...order, status: "pending", progress: 0});
+    console.log("Order Data:", order);
+    
+    if (!order || typeof order !== 'object') {
+      return NextResponse.json(
+        { success: false, message: "Invalid order data" },
+        { status: 400 }
+      );
+    }
+
+    const result = await projects.insertOne({ ...order, status: "pending", progress: 0 });
     
     if (result.acknowledged) {
       return NextResponse.json({ success: true, message: "Order added successfully" });
@@ -42,9 +51,9 @@ export const POST = async (request) => {
     return NextResponse.json({ success: false, message: "An error occurred. Please try again later." });
   }
 };
+
 export const PUT = async (request) => {
   try {
-    // Connect to the database
     const db = await connectDB();
     const projects = db.collection("projects");
     
@@ -57,14 +66,12 @@ export const PUT = async (request) => {
       { $set: formData } // Update with new data
     );
 
-    // Check the result and return appropriate response
     if (result.acknowledged && result.matchedCount > 0) {
       return NextResponse.json({ success: true, message: "Project updated successfully" });
     } else {
       return NextResponse.json({ success: false, message: "Failed to update project or project not found" });
     }
   } catch (error) {
-    // Log and return error response
     console.error("Error updating project:", error);
     return NextResponse.json({ success: false, message: "An error occurred. Please try again later." });
   }
