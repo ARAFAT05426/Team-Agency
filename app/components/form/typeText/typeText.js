@@ -14,12 +14,12 @@ const TypeText = ({
 
   return (
     <div
-      className={`w-full border px-4 py-1 rounded-[3px] flex items-center justify-between ${
+      className={`w-full border px-3 py-1 rounded-[3px] flex items-center justify-between ${
         isFocused ? "border-primary" : "border-secondary/50"
       } transition-all duration-300 border ${bg ? bg : "bg-none"}`}
     >
       <input
-        className={`outline-none flex-1 py-3 bg-transparent ${
+        className={`outline-none flex-1 py-2 md:py-3 bg-transparent ${
           isFocused
             ? "placeholder-primary text-primary"
             : "placeholder-black text-secondary"

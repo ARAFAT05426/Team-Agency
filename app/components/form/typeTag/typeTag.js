@@ -28,12 +28,12 @@ const TypeTag = ({ initialTags = [], onTagsChange, bg, placeholder }) => {
       <div
         className={`w-full px-2 flex items-center gap-3 border rounded-sm ${
           isFocused ? "border-primary" : "border-secondary/75"
-        } ${bg ? bg : ""}  transition-all duration-300`}
+        } ${bg ? bg : ""} transition-all duration-300`}
       >
         <input
           onFocus={() => setFocused(true)}
           onBlur={() => setFocused(false)}
-          className={`w-full bg-transparent outline-none p-3 ${
+          className={`w-full bg-transparent outline-none pl-3 py-2 md:py-3 ${
             isFocused
               ? "placeholder-primary text-primary"
               : "placeholder-secondary text-secondary"
@@ -43,7 +43,6 @@ const TypeTag = ({ initialTags = [], onTagsChange, bg, placeholder }) => {
           value={inputValue}
           onChange={(e) => setInputValue(e.target.value)}
         />
-
         <span
           onClick={handleAdd}
           className={`px-3 py-1 bg-primary font-semibold text-white rounded ${
@@ -52,25 +51,24 @@ const TypeTag = ({ initialTags = [], onTagsChange, bg, placeholder }) => {
         >
           Add
         </span>
-
         <FaHashtag
           className={`transition-all duration-300 ${
             isFocused ? "text-primary" : "text-secondary"
           }`}
         />
       </div>
-      <div className="flex flex-wrap items-center gap-3 px-1">
+      <div className="flex flex-wrap items-center gap-1 md:gap-2 px-1">
         {tags?.map((tag, i) => (
           <div
             key={i}
-            className={`text-xs px-2 py-1 ${
+            className={`text-[.5rem] md:text-xs px-2 py-1 ${
               bg ? bg : "bg-gray-100"
             } text-black shadow flex items-center gap-[.3rem]`}
           >
             {tag}{" "}
             <IoCloseSharp
               onClick={() => handleRemove(i)}
-              className="cursor-pointer"
+              className="cursor-pointer text-xs md:text-sm"
             />
           </div>
         ))}

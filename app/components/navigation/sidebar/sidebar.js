@@ -1,7 +1,7 @@
 "use client";
 import Image from "next/image";
 import Link from "next/link";
-import { FaRegUserCircle, FaSignOutAlt } from "react-icons/fa";
+import { FaSignOutAlt, FaUsers } from "react-icons/fa";
 import { HiOutlineBars3 } from "react-icons/hi2";
 import { TbWorldSearch } from "react-icons/tb";
 import { LiaBlogSolid } from "react-icons/lia";
@@ -26,13 +26,13 @@ const Sidebar = () => {
     },
     {
       icon: LiaBlogSolid,
-      path: "/dashboard/addblogs",
+      path: "/dashboard/blogs",
       title: "Blogs",
     },
     {
-      icon: FaRegUserCircle,
-      path: "/dashboard/userprofile",
-      title: "Profile",
+      icon: FaUsers,
+      path: "/dashboard/users",
+      title: "Users",
     },
   ];
 
@@ -73,7 +73,10 @@ const Sidebar = () => {
             </Link>
           ))}
         </div>
-        <button onClick={() =>signOut()} className="flex items-center gap-2 font-teko font-bold cursor-pointer">
+        <button
+          onClick={() => signOut()}
+          className="flex items-center gap-2 font-teko font-bold cursor-pointer"
+        >
           <FaSignOutAlt className="text-xl" />
           Log Out
         </button>

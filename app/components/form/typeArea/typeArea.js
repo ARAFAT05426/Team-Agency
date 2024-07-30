@@ -13,9 +13,9 @@ const TypeArea = ({
   const [isFocused, setIsFocused] = useState(false);
 
   return (
-    <div className="w-full lg:col-span-2">
+    <div className="w-full col-span-2">
       <div
-        className={`w-full border py-3 px-5 flex items-start ${
+        className={`w-full border py-2 px-4 md:py-3 md:px-5 flex items-start ${
           isFocused ? "border-primary" : "border-gray-300"
         } transition-all duration-300 rounded-sm bg-controller`}
       >

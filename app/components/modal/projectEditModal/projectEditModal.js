@@ -1,4 +1,10 @@
-import { FaUser, FaEnvelope, FaCalendarAlt, FaTasks, FaProjectDiagram } from "react-icons/fa";
+import {
+  FaUser,
+  FaEnvelope,
+  FaCalendarAlt,
+  FaTasks,
+  FaProjectDiagram,
+} from "react-icons/fa";
 import { AnimatePresence, motion } from "framer-motion";
 import TypeArea from "../../form/typeArea/typeArea";
 import TypeText from "../../form/typeText/typeText";
@@ -96,11 +102,13 @@ const ProjectEditModal = ({ isOpen, setIsOpen, project, refetch }) => {
             onClick={(e) => e.stopPropagation()}
             className="bg-gradient-to-br from-primary via-orange-600 to-primary text-white p-8 rounded-2xl w-full max-w-2xl shadow-2xl cursor-default relative"
           >
-            <form onSubmit={handleSubmit} className="grid grid-cols-2 gap-4">
+            <form
+              onSubmit={handleSubmit}
+              className="grid grid-cols-2 gap-4"
+            >
               <h1 className="text-5xl text-center font-teko font-semibold mb-4 col-span-2">
                 Edit Project
               </h1>
-
               <TypeText
                 name="title"
                 icon={FaProjectDiagram}
@@ -200,10 +208,10 @@ const ProjectEditModal = ({ isOpen, setIsOpen, project, refetch }) => {
                   type="submit"
                   disabled={mutation.isLoading}
                   className={`bg-green-500 hover:bg-green-600 h-full min-w-28 px-5 py-2 text-white font-semibold font-teko text-2xl rounded text-center cursor-pointer ${
-                    mutation.isLoading ? 'opacity-50 cursor-not-allowed' : ''
+                    mutation.isLoading ? "opacity-50 cursor-not-allowed" : ""
                   }`}
                 >
-                  {mutation.isLoading ? 'Saving...' : 'Save'}
+                  {mutation.isLoading ? "Saving..." : "Save"}
                 </button>
                 <button
                   type="button"
