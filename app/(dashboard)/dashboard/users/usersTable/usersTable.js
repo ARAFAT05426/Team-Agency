@@ -22,13 +22,13 @@ const UsersTable = ({ users, onEdit, onDelete }) => {
           </tr>
         </thead>
         <tbody className="font-semibold">
-          {users.map((user) => (
-            <tr key={user._id}>
-              <td className="border-t px-6 py-4">{user.name}</td>
-              <td className="border-t px-6 py-4">{user.email}</td>
-              <td className="border-t px-6 py-4">{user.role}</td>
+          {users?.map((user) => (
+            <tr key={user?._id}>
+              <td className="border-t px-6 py-4">{user?.name}</td>
+              <td className="border-t px-6 py-4">{user?.email}</td>
+              <td className="border-t px-6 py-4">{user?.role}</td>
               <td className="border-t px-6 py-4">
-                {formatDate(user.timestamp)}
+                {formatDate(user?.timestamp)}
               </td>
               <td className="border-t px-6 py-4 flex items-center gap-3">
                 <button

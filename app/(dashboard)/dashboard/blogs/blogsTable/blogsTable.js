@@ -5,7 +5,7 @@ const BlogsTable = ({ blogs, onEdit }) => {
     <table className="min-w-full border-x">
       <thead className="bg-gray-100/75">
         <tr>
-          {["#", "Title", "Added", "Categories", "Reading Time", "Action"].map(
+          {["#", "Title", "Added", "Categories", "Reading Time", "Action"]?.map(
             (header) => (
               <th
                 key={header}
@@ -18,27 +18,27 @@ const BlogsTable = ({ blogs, onEdit }) => {
         </tr>
       </thead>
       <tbody className="bg-white">
-        {blogs.map((blog, i) => (
+        {blogs?.map((blog, i) => (
           <tr
             key={i}
             className={`${
-              i < blogs.length - 1 ? "border-b" : ""
+              i < blogs?.length - 1 ? "border-b" : ""
             } hover:bg-gray-50 transition-colors duration-300 cursor-pointer`}
           >
             <td className="py-4 px-6 text-xl font-teko font-semibold text-gray-500">
               {i + 1}
             </td>
             <td className="py-4 px-6 text-gray-700 font-semibold flex items-center gap-2">
-              {blog.title}
+              {blog?.title}
             </td>
             <td className="py-4 px-6 text-xs font-bold text-gray-500">
-              {new Date(blog.date).toDateString()}
+              {new Date(blog?.date).toDateString()}
             </td>
             <td className="py-4 px-6 text-sm text-gray-500">
-              {blog.categories.join(", ")}
+              {blog?.categories.join(", ")}
             </td>
             <td className="py-4 px-6 text-sm font-semibold text-gray-500">
-              {blog.readingTime}
+              {blog?.readingTime}
             </td>
             <td className="py-4 px-6 text-sm text-gray-700 flex items-center gap-3">
               <button

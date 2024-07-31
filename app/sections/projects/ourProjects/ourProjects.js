@@ -1,5 +1,7 @@
+"use client";
 import ProjectCard from "@/app/components/cards/projectCard/projectCard";
 import Heading from "@/app/components/header/heading/heading";
+import { Fade } from "react-awesome-reveal";
 
 const OurProjects = () => {
   const projects = [
@@ -30,15 +32,19 @@ const OurProjects = () => {
   ];
   return (
     <div className="w-full lg:w-container mx-auto space-y-5 lg:space-y-10">
-      <div className="flex flex-col items-center">
-        <Heading title={"Our Portfolio"} />
-        <h1 className="text-7xl font-teko font-semibold">
-          Our <span className="text-primary">Work</span> Project
-        </h1>
-      </div>
+      <Fade direction="up">
+        <div className="flex flex-col items-center">
+          <Heading title={"Our Portfolio"} />
+          <h1 className="text-7xl font-teko font-semibold">
+            Our <span className="text-primary">Work</span> Project
+          </h1>
+        </div>
+      </Fade>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {projects?.map((project, i) => (
-          <ProjectCard key={i} project={project} />
+          <Fade key={i} direction="up" delay={i * 150}>
+            <ProjectCard project={project} />
+          </Fade>
         ))}
       </div>
     </div>

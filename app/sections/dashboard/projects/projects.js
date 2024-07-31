@@ -30,7 +30,7 @@ const Projects = () => {
   });
 
   const formatDate = (date) => {
-    return new Date(date).toLocaleDateString("en-US", {
+    return new Date(date)?.toLocaleDateString("en-US", {
       weekday: "short",
       month: "short",
       day: "numeric",
@@ -61,7 +61,7 @@ const Projects = () => {
     return (
       <div className="flex justify-center items-center min-h-screen text-red-600">
         <FaExclamationTriangle className="text-3xl mr-2" />
-        <span>Error: {error.message}</span>
+        <span>Error: {error?.message}</span>
       </div>
     );
 

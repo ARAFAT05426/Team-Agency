@@ -2,16 +2,17 @@ import { NextResponse } from "next/server";
 import { cookies } from "next/headers";
 
 export const middleware = async (request) => {
-  const cookieStore = cookies();
-  const token = cookieStore.get("next-auth.session-token"); // Assuming the token is stored as 'session_token'
+  const cookieStore = cookies(request);
+  const token =
+    cookieStore.get("next-auth.session-token") ||
+    cookieStore.get("__Secure-next-auth.session-token");
 
   if (!token) {
-    console.log("Redirecting to login page (missing token)");
+    console.info("No valid session token found. Redirecting to login page.");
     return NextResponse.redirect(new URL("/auth/login", request.url));
-  } else {
-    console.log("Valid token found, proceeding to dashboard");
   }
 
+  console.info("Valid session token found. Proceeding to requested page.");
   return NextResponse.next();
 };
 

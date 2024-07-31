@@ -25,14 +25,14 @@ const BlogEditModal = ({ isOpen, setIsOpen, blog, refetch }) => {
   useEffect(() => {
     if (blog) {
       setFormData({
-        title: blog.title,
-        author: blog.author,
-        content: blog.content,
+        title: blog?.title,
+        author: blog?.author,
+        content: blog?.content,
         image: null,
-        tags: blog.tags || [],
-        categories: blog.categories || [],
+        tags: blog?.tags || [],
+        categories: blog?.categories || [],
       });
-      setPreview(blog.image);
+      setPreview(blog?.image);
     }
   }, [blog]);
 
@@ -73,13 +73,13 @@ const BlogEditModal = ({ isOpen, setIsOpen, blog, refetch }) => {
     mutationFn: async () => {
       let imageUrl = formData.image;
 
-      if (formData.image && formData.image instanceof File) {
+      if (formData?.image && formData?.image instanceof File) {
         const imgForm = new FormData();
-        imgForm.append("image", formData.image);
+        imgForm.append("image", formData?.image);
 
         try {
           const { data } = await axios.post(
-            `https://api.imgbb.com/1/upload?key=${process.env.NEXT_PUBLIC_IMGBB_KEY}`,
+            `https://api.imgbb.com/1/upload?key=${process?.env?.NEXT_PUBLIC_IMGBB_KEY}`,
             imgForm,
             {
               headers: {
@@ -87,7 +87,7 @@ const BlogEditModal = ({ isOpen, setIsOpen, blog, refetch }) => {
               },
             }
           );
-          imageUrl = data.data.display_url;
+          imageUrl = data?.data?.display_url;
         } catch (error) {
           console.error("Image upload error:", error);
           throw new Error("Failed to upload image");
@@ -96,14 +96,14 @@ const BlogEditModal = ({ isOpen, setIsOpen, blog, refetch }) => {
 
       const response = await axios.put(
         "/blogs/api",
-        { ...formData, image: imageUrl, id: blog._id },
+        { ...formData, image: imageUrl, id: blog?._id },
         {
           headers: {
             "Content-Type": "application/json",
           },
         }
       );
-      return response.data;
+      return response?.data;
     },
     onSuccess: async () => {
       toast.success("Blog updated successfully!");
@@ -111,7 +111,7 @@ const BlogEditModal = ({ isOpen, setIsOpen, blog, refetch }) => {
       setIsOpen(false);
     },
     onError: (error) => {
-      toast.error(`An error occurred: ${error.message}`);
+      toast.error(`An error occurred: ${error?.message}`);
     },
   });
 
@@ -165,20 +165,20 @@ const BlogEditModal = ({ isOpen, setIsOpen, blog, refetch }) => {
                 name="title"
                 placeholder="Title"
                 bg={"bg-controller"}
-                value={formData.title}
+                value={formData?.title}
                 onChange={handleChange}
                 icon={FaEdit}
               />
               <TypeArea
                 name="content"
                 placeholder="Content"
-                value={formData.content}
+                value={formData?.content}
                 onChange={handleChange}
                 icon={FaEnvelope}
               />
               <div className="grid grid-cols-2 gap-4">
                 <TypeTag
-                  initialTags={blog.tags}
+                  initialTags={blog?.tags}
                   onTagsChange={handleTagsChange}
                   bg={"bg-controller"}
                   placeholder="Tags"
@@ -193,12 +193,12 @@ const BlogEditModal = ({ isOpen, setIsOpen, blog, refetch }) => {
               <div className="flex items-center justify-center gap-3">
                 <button
                   type="submit"
-                  disabled={mutation.isLoading}
+                  disabled={mutation?.isLoading}
                   className={`bg-green-500 hover:bg-green-600 h-full min-w-[120px] px-5 py-2 text-white font-semibold font-teko text-lg sm:text-2xl rounded text-center cursor-pointer ${
-                    mutation.isLoading ? "opacity-50 cursor-not-allowed" : ""
+                    mutation?.isLoading ? "opacity-50 cursor-not-allowed" : ""
                   }`}
                 >
-                  {mutation.isLoading ? "Saving..." : "Save Changes"}
+                  {mutation?.isLoading ? "Saving..." : "Save Changes"}
                 </button>
                 <button
                   type="button"

@@ -33,7 +33,7 @@ const UserEditModal = ({ isOpen, setIsOpen, user, refetch }) => {
       setIsOpen(false);
     },
     onError: (error) => {
-      toast.error(`An error occurred: ${error.message}`);
+      toast.error(`An error occurred: ${error?.message}`);
     },
   });
 
@@ -49,7 +49,7 @@ const UserEditModal = ({ isOpen, setIsOpen, user, refetch }) => {
       await refetch();
       setIsOpen(false);
     } catch (error) {
-      toast.error(`An error occurred: ${error.message}`);
+      toast.error(`An error occurred: ${error?.message}`);
     }
   };
 

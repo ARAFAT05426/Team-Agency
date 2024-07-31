@@ -68,7 +68,15 @@ const StaticNavbar = () => {
             className="p-3 hover:bg-primary transition-all duration-500 border-black/50 hover:text-white rounded-sm border cursor-pointer"
           />
         </div>
-        <NavToggle isOpen={act} onClick={() => setAct(!act)} />
+        <div className="flex items-center gap-2">
+          <Link className="flex md:hidden" href="/dashboard">
+            <FaUser
+              size={45}
+              className="p-3 hover:text-primary transition-all duration-500 rounded-sm cursor-pointer"
+            />
+          </Link>
+          <NavToggle isOpen={act} onClick={() => setAct(!act)} />
+        </div>
       </div>
     </motion.div>
   );

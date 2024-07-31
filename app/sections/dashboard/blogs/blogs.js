@@ -49,7 +49,7 @@ const Blogs = () => {
     return (
       <div className="flex justify-center items-center min-h-screen text-red-600">
         <FaExclamationTriangle className="text-3xl mr-2" />
-        <span>Error: {error.message}</span>
+        <span>Error: {error?.message}</span>
       </div>
     );
 

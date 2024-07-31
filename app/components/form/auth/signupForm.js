@@ -12,10 +12,11 @@ import { toast } from "sonner";
 
 const SignupForm = ({ setAct }) => {
   const { data: session } = useSession();
+  console.log(session);
   const router = useRouter();
 
   useEffect(() => {
-    if (session) {
+    if (session?.user) {
       router.push("/dashboard");
     }
   }, [session, router]);
@@ -61,8 +62,8 @@ const SignupForm = ({ setAct }) => {
   const handleSocialSignIn = async (provider) => {
     try {
       await signIn(provider, { redirect: false });
-      toast.success("Sign up with Google successful");
       router.push("/dashboard");
+      toast.success("Sign up with Google successful");
     } catch (error) {
       toast.error(`Sign up with ${provider} failed. Please try again.`);
       console.error(`Sign up with ${provider} failed:`, error);

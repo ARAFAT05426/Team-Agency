@@ -14,7 +14,7 @@ const LoginForm = ({ setAct }) => {
   const router = useRouter();
   const { data: session } = useSession();
   useEffect(() => {
-    if (session) {
+    if (session?.user) {
       router.push("/dashboard");
     }
   }, [session, router]);
@@ -38,7 +38,7 @@ const LoginForm = ({ setAct }) => {
         }
       );
 
-      if (response.error) {
+      if (response?.error) {
         toast.error(response.error);
       } else {
         router.push("/dashboard");
@@ -52,8 +52,8 @@ const LoginForm = ({ setAct }) => {
   const handleSocialLogin = async (provider) => {
     try {
       await signIn(provider, { redirect: false });
-      toast.success("Sign up with Google successful");
       router.push("/dashboard");
+      toast.success("Sign up with Google successful");
     } catch (error) {
       toast.error(`Sign up with ${provider} failed. Please try again.`);
       console.error(`Sign up with ${provider} failed:`, error);
