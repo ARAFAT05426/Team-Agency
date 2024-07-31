@@ -1,11 +1,12 @@
 "use client";
 import { useQuery } from "@tanstack/react-query";
 import UsersTable from "@/app/(dashboard)/dashboard/users/usersTable/usersTable";
-// import DeleteModal from "@/app/components/modal/deleteModal/deleteModal";
 import UserEditModal from "@/app/components/modal/userEditModal/userEditModal";
 import { useState } from "react";
 import axiosCommon from "@/lib/axios/axiosCommon";
-import Modal404 from "@/app/components/modal/modal404/modal404";
+import DeleteModal from "@/app/components/modal/deleteModal/deleteModal";
+import { AiOutlineLoading3Quarters } from "react-icons/ai";
+import { FaExclamationTriangle } from "react-icons/fa";
 
 const Users = () => {
   const {
@@ -37,27 +38,49 @@ const Users = () => {
     }
   };
 
-  if (isLoading) return <div>Loading...</div>;
-  if (isError) return <div>Error: {error.message}</div>;
+  if (isLoading)
+    return (
+      <div className="flex justify-center items-center min-h-screen">
+        <AiOutlineLoading3Quarters className="animate-spin text-4xl text-primary" />
+      </div>
+    );
+  if (isError)
+    return (
+      <div className="flex justify-center items-center min-h-screen text-red-600">
+        <FaExclamationTriangle className="text-3xl mr-2" />
+        <span>Error: {error.message}</span>
+      </div>
+    );
 
   return (
     <div className="mt-10 p-10 border border-gray-200 rounded bg-white shadow min-w-full overflow-x-auto space-y-3">
-      <UsersTable users={users} onEdit={handleOptionSelect} onDelete={handleOptionSelect} />
+      <div>
+        <h1 className="text-4xl font-teko font-semibold  mb-1">Manage Users</h1>
+        <p className="text-gray-600 mb-8">
+          Here you can view, edit, or delete user information. Select an option
+          from the dropdown menu next to each user to proceed.
+        </p>
+      </div>
+      <UsersTable
+        users={users}
+        onEdit={handleOptionSelect}
+        onDelete={handleOptionSelect}
+      />
       <UserEditModal
         user={selectedUser}
         isOpen={isEditOpen}
         setIsOpen={setEditOpen}
         refetch={refetch}
       />
-      {/* <DeleteModal
+      <DeleteModal
         user={selectedUser}
         isOpen={isDeleteOpen}
         setIsOpen={setDeleteOpen}
         refetch={refetch}
         id={selectedUser?._id}
         text={"user"}
-      /> */}
-      <Modal404 isOpen={isDeleteOpen} setIsOpen={setDeleteOpen} />
+        api={"/auth/api"}
+      />
     </div>
   );
 };

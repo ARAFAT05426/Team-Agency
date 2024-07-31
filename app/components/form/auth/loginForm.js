@@ -51,23 +51,12 @@ const LoginForm = ({ setAct }) => {
 
   const handleSocialLogin = async (provider) => {
     try {
-      const response = await toast.promise(
-        await signIn(provider, { redirect: false }),
-        {
-          loading: `Signing in with ${provider}...`,
-          success: `Sign in with ${provider} successful!`,
-          error: `Sign in with ${provider} failed. Please try again.`,
-        }
-      );
-
-      if (response.error) {
-        toast.error(response.error);
-      } else {
-        router.push("/dashboard");
-      }
+      await signIn(provider, { redirect: false });
+      toast.success("Sign up with Google successful");
+      router.push("/dashboard");
     } catch (error) {
-      toast.error(`Sign in with ${provider} failed. Please try again.`);
-      console.error(`Sign in with ${provider} failed:`, error);
+      toast.error(`Sign up with ${provider} failed. Please try again.`);
+      console.error(`Sign up with ${provider} failed:`, error);
     }
   };
 

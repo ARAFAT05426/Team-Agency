@@ -3,10 +3,10 @@ import { useMutation } from "@tanstack/react-query";
 import { toast } from "sonner";
 import { AnimatePresence, motion } from "framer-motion";
 import axiosCommon from "@/lib/axios/axiosCommon";
-const DeleteModal = ({ isOpen, setIsOpen, id, refetch, text }) => {
+const DeleteModal = ({ isOpen, setIsOpen, id, refetch, text, api }) => {
   const mutation = useMutation({
     mutationFn: async () => {
-      const response = await axiosCommon.delete(`/blogs/api`, {
+      const response = await axiosCommon.delete(`${api}`, {
         data: { id: id },
         headers: {
           "Content-Type": "application/json",
@@ -15,7 +15,7 @@ const DeleteModal = ({ isOpen, setIsOpen, id, refetch, text }) => {
       return response.data;
     },
     onSuccess: async () => {
-      toast.success("Blog deleted successfully!");
+      toast.success(`${text} deleted successfully!`);
       await refetch();
       setIsOpen(false);
     },

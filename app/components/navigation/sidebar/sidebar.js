@@ -9,6 +9,7 @@ import { usePathname } from "next/navigation";
 import { signOut } from "next-auth/react";
 import { RxHome } from "react-icons/rx";
 import { useState } from "react";
+import { toast } from "sonner";
 
 const Sidebar = () => {
   const path = usePathname();
@@ -35,7 +36,14 @@ const Sidebar = () => {
       title: "Users",
     },
   ];
-
+  const handleSignOut = async () => {
+    try {
+      await signOut();
+      toast.success("Logged out successfully!");
+    } catch (error) {
+      toast.error(`An error occurred: ${error.message}`);
+    }
+  };
   return (
     <nav>
       <HiOutlineBars3
@@ -74,7 +82,7 @@ const Sidebar = () => {
           ))}
         </div>
         <button
-          onClick={() => signOut()}
+          onClick={handleSignOut}
           className="flex items-center gap-2 font-teko font-bold cursor-pointer"
         >
           <FaSignOutAlt className="text-xl" />

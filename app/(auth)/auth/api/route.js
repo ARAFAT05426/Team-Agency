@@ -41,3 +41,31 @@ export const PUT = async (request) => {
   }
 };
 
+export const DELETE = async (request) => {
+  try {
+    const db = await connectDB();
+    const users = db.collection("users");
+
+    const { id } = await request.json();
+
+    const result = await users.deleteOne({ _id: new ObjectId(id) });
+
+    if (result.acknowledged && result.deletedCount > 0) {
+      return NextResponse.json({
+        success: true,
+        message: "User deleted successfully",
+      });
+    } else {
+      return NextResponse.json({
+        success: false,
+        message: "Failed to delete User or User not found",
+      });
+    }
+  } catch (error) {
+    console.error("Error deleting User:", error);
+    return NextResponse.json({
+      success: false,
+      message: "An error occurred. Please try again later.",
+    });
+  }
+};

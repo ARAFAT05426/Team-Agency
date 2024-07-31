@@ -176,7 +176,6 @@ const Footer = () => {
               </div>
           </div>
         </div>
-        <Slide direction="up" duration={1000} delay={700}>
           <div className="h-[6.5rem] bg-[#070d14] flex items-center justify-center">
             <div className="w-container flex flex-col lg:flex-row items-center justify-between gap-3 text-center sm:text-left">
               <p>Copyright © 2022 Theme. All Rights Reserved.</p>
@@ -191,7 +190,6 @@ const Footer = () => {
               </div>
             </div>
           </div>
-        </Slide>
       </footer>
     </>
   );

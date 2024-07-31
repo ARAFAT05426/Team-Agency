@@ -100,7 +100,7 @@ const ProjectEditModal = ({ isOpen, setIsOpen, project, refetch }) => {
             animate={{ scale: 1, rotate: "0deg" }}
             exit={{ scale: 0.8, rotate: "4deg" }}
             onClick={(e) => e.stopPropagation()}
-            className="bg-gradient-to-br from-primary via-orange-600 to-primary text-white p-8 rounded-2xl w-full max-w-2xl shadow-2xl cursor-default relative"
+            className="bg-gray-500 text-white p-8 rounded-2xl w-full max-w-2xl shadow-2xl cursor-default relative"
           >
             <form
               onSubmit={handleSubmit}

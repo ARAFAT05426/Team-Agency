@@ -6,9 +6,9 @@ import { AiOutlineMail, AiOutlineUser } from "react-icons/ai";
 import { signIn, useSession } from "next-auth/react";
 import axiosCommon from "@/lib/axios/axiosCommon";
 import { useRouter } from "next/navigation";
-import { toast } from "sonner";
 import Link from "next/link";
 import { useEffect } from "react";
+import { toast } from "sonner";
 
 const SignupForm = ({ setAct }) => {
   const { data: session } = useSession();
@@ -30,9 +30,9 @@ const SignupForm = ({ setAct }) => {
 
     try {
       const response = await toast.promise(
-        await axiosCommon.post("/auth/signup/api", newUser),
+        axiosCommon.post("/auth/signup/api", newUser),
         {
-          loading: "Signing up...",
+          pending: "Signing up...",
           success: "Sign up successful!",
           error: "Sign up failed. Please try again.",
         }
@@ -60,23 +60,12 @@ const SignupForm = ({ setAct }) => {
 
   const handleSocialSignIn = async (provider) => {
     try {
-      const response = await toast.promise(
-        await signIn(provider, { redirect: false }), // Prevent page reload
-        {
-          loading: `Signing in with ${provider}...`,
-          success: `Sign in with ${provider} successful!`,
-          error: `Sign in with ${provider} failed. Please try again.`,
-        }
-      );
-
-      if (!response.error) {
-        router.push("/dashboard");
-      } else {
-        toast.error(response.error);
-      }
+      await signIn(provider, { redirect: false });
+      toast.success("Sign up with Google successful");
+      router.push("/dashboard");
     } catch (error) {
-      toast.error(`Sign in with ${provider} failed. Please try again.`);
-      console.error(`Sign in with ${provider} failed:`, error);
+      toast.error(`Sign up with ${provider} failed. Please try again.`);
+      console.error(`Sign up with ${provider} failed:`, error);
     }
   };
 

@@ -41,7 +41,7 @@ const ProjectDetailsModal = ({ isOpen, setIsOpen, project }) => {
             animate={{ scale: 1, rotate: "0deg" }}
             exit={{ scale: 0.8, rotate: "4deg" }}
             onClick={(e) => e.stopPropagation()}
-            className="bg-gradient-to-br from-primary via-orange-600 to-primary text-white p-10 rounded-2xl flex flex-col items-center w-full max-w-3xl shadow-2xl cursor-default relative overflow-hidden"
+            className="bg-gray-500 text-white p-10 rounded-2xl flex flex-col items-center w-full max-w-3xl shadow-2xl cursor-default relative overflow-hidden"
           >
             {/* Background Icons */}
             <FaProjectDiagram className="text-white/10 rotate-6 text-[18rem] absolute z-0 -top-12 -left-12 opacity-60" />

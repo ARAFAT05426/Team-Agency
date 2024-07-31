@@ -3,11 +3,11 @@ import { cookies } from "next/headers";
 
 export const middleware = async (request) => {
   const cookieStore = cookies();
-  const token = cookieStore.get("session_token"); // Assuming the token is stored as 'session_token'
+  const token = cookieStore.get("next-auth.session-token"); // Assuming the token is stored as 'session_token'
 
   if (!token) {
     console.log("Redirecting to login page (missing token)");
-    return NextResponse.redirect(new URL("/login", request.url));
+    return NextResponse.redirect(new URL("/auth/login", request.url));
   } else {
     console.log("Valid token found, proceeding to dashboard");
   }
@@ -16,5 +16,10 @@ export const middleware = async (request) => {
 };
 
 export const config = {
-  matcher: ["/dashboard"],
+  matcher: [
+    "/dashboard",
+    "/dashboard/blogs",
+    "/dashboard/users",
+    "/dashboard/seo",
+  ],
 };

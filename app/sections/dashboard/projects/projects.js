@@ -1,12 +1,13 @@
 "use client";
 import axiosCommon from "@/lib/axios/axiosCommon";
 import { useQuery } from "@tanstack/react-query";
-import { FaCheck } from "react-icons/fa";
+import { FaCheck, FaExclamationTriangle } from "react-icons/fa";
 import ProjectDetailsModal from "@/app/components/modal/projectDetailsModal/projectDetailsModal";
 import { useState } from "react";
 import ProjectsTable from "./projectsTable/projectsTable";
 import ProjectEditModal from "@/app/components/modal/projectEditModal/projectEditModal";
 import Modal404 from "@/app/components/modal/modal404/modal404";
+import { AiOutlineLoading3Quarters } from "react-icons/ai";
 
 const Projects = () => {
   const dropdownOptions = ["Edit", "Update", "View Details"];
@@ -50,8 +51,19 @@ const Projects = () => {
     }
   };
 
-  if (isLoading) return <div>Loading...</div>;
-  if (isError) return <div>Error: {error.message}</div>;
+  if (isLoading)
+    return (
+      <div className="flex justify-center items-center min-h-screen">
+        <AiOutlineLoading3Quarters className="animate-spin text-4xl text-primary" />
+      </div>
+    );
+  if (isError)
+    return (
+      <div className="flex justify-center items-center min-h-screen text-red-600">
+        <FaExclamationTriangle className="text-3xl mr-2" />
+        <span>Error: {error.message}</span>
+      </div>
+    );
 
   return (
     <div className="mt-10 p-10 border border-gray-200 rounded bg-white shadow overflow-x-auto">

@@ -6,7 +6,8 @@ import BlogEditModal from "@/app/components/modal/blogEditModal/blogEditModal";
 import BlogsTable from "@/app/(dashboard)/dashboard/blogs/blogsTable/blogsTable";
 import DeleteModal from "@/app/components/modal/deleteModal/deleteModal";
 import AddBlogModal from "@/app/components/modal/addBlogModal/addBlogModal";
-import { FaPlus } from "react-icons/fa";
+import { FaExclamationTriangle, FaPlus } from "react-icons/fa";
+import { AiOutlineLoading3Quarters } from "react-icons/ai";
 
 const Blogs = () => {
   const [selectedBlog, setSelectedBlog] = useState(null);
@@ -38,8 +39,19 @@ const Blogs = () => {
     }
   };
 
-  if (isLoading) return <div>Loading...</div>;
-  if (isError) return <div>Error: {error.message}</div>;
+  if (isLoading)
+    return (
+      <div className="flex justify-center items-center min-h-screen">
+        <AiOutlineLoading3Quarters className="animate-spin text-4xl text-primary" />
+      </div>
+    );
+  if (isError)
+    return (
+      <div className="flex justify-center items-center min-h-screen text-red-600">
+        <FaExclamationTriangle className="text-3xl mr-2" />
+        <span>Error: {error.message}</span>
+      </div>
+    );
 
   return (
     <div className="mt-10 p-4 sm:p-10 border border-gray-200 rounded bg-white shadow min-w-full overflow-x-auto space-y-3">
@@ -59,6 +71,7 @@ const Blogs = () => {
         setIsOpen={setDeleteOpen}
         refetch={refetch}
         text={"blog post"}
+        api={"/blogs/api"}
       />
       <AddBlogModal
         isOpen={isAddOpen}
@@ -72,7 +85,9 @@ const Blogs = () => {
 const Header = ({ setAddOpen }) => (
   <div className="flex justify-between items-center mb-5 w-full">
     <div className="flex flex-col gap-2 px-2">
-      <h1 className="text-2xl sm:text-3xl font-teko font-bold text-gray-900">Blogs</h1>
+      <h1 className="text-2xl sm:text-3xl font-teko font-bold text-gray-900">
+        Blogs
+      </h1>
       <p className="text-gray-600 text-sm">Manage and create your blog posts</p>
     </div>
     <button
