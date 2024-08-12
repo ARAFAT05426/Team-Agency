@@ -1,102 +1,96 @@
 "use client";
+import ProjectsOverview from "./projectsOverview/projectsOverview";
+import { AiOutlineLoading3Quarters } from "react-icons/ai";
+import { FaExclamationTriangle } from "react-icons/fa";
 import axiosCommon from "@/lib/axios/axiosCommon";
 import { useQuery } from "@tanstack/react-query";
-import { FaCheck, FaExclamationTriangle } from "react-icons/fa";
-import ProjectDetailsModal from "@/app/components/modal/projectDetailsModal/projectDetailsModal";
-import { useState } from "react";
-import ProjectsTable from "./projectsTable/projectsTable";
-import ProjectEditModal from "@/app/components/modal/projectEditModal/projectEditModal";
-import Modal404 from "@/app/components/modal/modal404/modal404";
-import { AiOutlineLoading3Quarters } from "react-icons/ai";
+import Table from "@/app/components/table/table";
 
 const Projects = () => {
-  const dropdownOptions = ["Edit", "Update", "View Details"];
-  const [selectedProject, setSelectedProject] = useState(null);
-  const [isDetailsOpen, setDetailsOpen] = useState(false);
-  const [isErrorOpen, setErrorOpen] = useState(false);
-  const [isEditOpen, setEditOpen] = useState(false);
-  const {
-    data: projects = [],
-    isLoading,
-    refetch,
-    isError,
-    error,
-  } = useQuery({
-    queryKey: ["projects"],
+  const { data, isLoading, isError, error, refetch } = useQuery({
+    queryKey: ["completedProjects"],
     queryFn: async () => {
-      const { data } = await axiosCommon.get("/projects/api");
-      return data.projects;
+      try {
+        const { data } = await axiosCommon.get(
+          "/projects/api?status=completed"
+        );
+        return data;
+      } catch (error) {
+        throw new Error("Failed to fetch projects");
+      }
     },
   });
+  console.log(data);
 
-  const formatDate = (date) => {
-    return new Date(date)?.toLocaleDateString("en-US", {
-      weekday: "short",
-      month: "short",
-      day: "numeric",
-    });
-  };
-
-  const handleOptionSelect = (option, project) => {
-    if (option === "View Details") {
-      setSelectedProject(project);
-      setDetailsOpen(true);
-    }
-    if (option === "Edit") {
-      setSelectedProject(project);
-      setEditOpen(true);
-    }
-    if (option === "Update") {
-      setErrorOpen(true);
-    }
-  };
-
-  if (isLoading)
+  if (isLoading) {
     return (
-      <div className="flex justify-center items-center min-h-screen">
+      <div className="flex justify-center items-center min-h-96">
         <AiOutlineLoading3Quarters className="animate-spin text-4xl text-primary" />
       </div>
     );
-  if (isError)
+  }
+
+  if (isError) {
     return (
-      <div className="flex justify-center items-center min-h-screen text-red-600">
+      <div className="flex justify-center items-center min-h-96 text-red-600">
         <FaExclamationTriangle className="text-3xl mr-2" />
-        <span>Error: {error?.message}</span>
+        <span>Error: {error.message}</span>
       </div>
     );
+  }
 
   return (
-    <div className="mt-10 p-10 border border-gray-200 rounded bg-white shadow overflow-x-auto">
-      <Header />
-      <ProjectsTable
-        projects={projects}
-        formatDate={formatDate}
-        dropdownOptions={dropdownOptions}
-        onOptionSelect={handleOptionSelect}
+    <div className="flex flex-col lg:flex-row items-start lg:items-center gap-3 md:gap-5">
+      <Table
+        rowsPerPage={4}
+        className="w-full"
+        topHeading={
+          <>
+            Completed Projects
+            <span className="text-xs font-semibold">
+              {data?.projects?.length} completed of {data?.total}
+            </span>
+          </>
+        }
+        headers={[
+          { header: "Project Name", accessor: "projectTitle" },
+          { header: "Category", accessor: "category" },
+          { header: "Priority", accessor: "priority" },
+          { header: "Started At", accessor: "started" },
+          { header: "Finished", accessor: "finished" },
+        ]}
+        columns={data?.projects?.map((project) => ({
+          ...project,
+          priority: (
+            <span
+              className={`px-3 py-1 text-xs rounded text-white ${
+                project.priority === "High" ? "bg-primary" : "bg-green-400"
+              }`}
+            >
+              {project.priority}
+            </span>
+          ),
+          started: new Date(project?.dates?.creationDate).toLocaleDateString(
+            "en-US",
+            {
+              month: "short",
+              day: "numeric",
+              year: "numeric",
+            }
+          ),
+          finished: new Date(project?.dates?.deadlineDate).toLocaleDateString(
+            "en-US",
+            {
+              month: "short",
+              day: "numeric",
+              year: "numeric",
+            }
+          ),
+        }))}
       />
-      <ProjectDetailsModal
-        isOpen={isDetailsOpen}
-        setIsOpen={setDetailsOpen}
-        project={selectedProject}
-      />
-      <ProjectEditModal
-        isOpen={isEditOpen}
-        setIsOpen={setEditOpen}
-        project={selectedProject}
-        refetch={refetch}
-      />
-      <Modal404 isOpen={isErrorOpen} setIsOpen={setErrorOpen} />
+      <ProjectsOverview />
     </div>
   );
 };
-
-const Header = () => (
-  <div className="pl-5">
-    <h1 className="text-3xl font-teko font-bold text-gray-900">Projects</h1>
-    <span className="flex items-center gap-2 font-bold text-xs my-3">
-      <FaCheck className="text-green-500" /> 30 done this month
-    </span>
-  </div>
-);
 
 export default Projects;

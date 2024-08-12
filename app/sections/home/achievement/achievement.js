@@ -47,7 +47,7 @@ const Achievement = () => {
     <div className="relative overflow-hidden">
       {/* Background Decorations */}
       <Zoom duration={800} delay={0} triggerOnce>
-        <div className="absolute w-[30rem] lg:w-[40rem] h-[30rem] lg:h-[40rem] bg-primary hidden md:flex z-[-1] rounded-[5rem] -top-[15%] -right-16 rotate-45" />
+        <div className="absolute h-96 w-96 md:w-[30rem] lg:w-[40rem] md:h-[30rem] lg:h-[40rem] bg-primary hidden md:flex z-[-1] rounded-[5rem] -top-1/4 lg:-top-[15%] -right-52 lg:-right-16 rotate-45" />
       </Zoom>
       <Fade duration={1000} delay={250} triggerOnce>
         <Image

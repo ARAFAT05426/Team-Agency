@@ -3,6 +3,7 @@ import { GoArrowRight } from "react-icons/go";
 import Image from "next/image";
 import { Fade } from "react-awesome-reveal";
 import "./agencyCards.css";
+import Link from "next/link";
 
 const AgencyCards = () => {
   const shortContents = [
@@ -87,9 +88,9 @@ const AgencyCards = () => {
             <p className="max-w-64 z-10">
               {content?.description}....
             </p>
-            <div className="flex items-center gap-2 font-teko text-primary text-xl z-10 group-hover:text-white transition-all duration-500 cursor-pointer">
+            <Link href={"/services"} className="flex items-center gap-2 font-teko text-primary text-xl z-10 group-hover:text-white transition-all duration-500 cursor-pointer">
               View Subject <GoArrowRight className="mb-1" />
-            </div>
+            </Link>
           </div>
         </Fade>
       ))}

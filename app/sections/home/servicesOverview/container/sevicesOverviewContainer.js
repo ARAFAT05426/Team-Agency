@@ -20,9 +20,9 @@ const SevicesOverviewContainer = () => {
   ];
 
   return (
-    <div className="w-full lg:w-container mx-auto py-16 flex flex-col lg:flex-row items-start justify-between px-3 md:px-14 lg:px-20">
+    <div className="max-w-full lg:max-w-7xl mx-auto py-12 flex flex-col md:flex-row items-start justify-between gap-5 lg:gap-10 px-3 md:px-10 lg:px-16">
       <div
-        className="bg-controller w-full max-w-full lg:max-w-sm px-5 pt-10 pb-20 flex flex-col gap-5 mt-10 rounded-lg h-[35rem]"
+        className="bg-controller w-full max-w-full md:max-w-[17.5rem] lg:max-w-sm px-5 pt-10 pb-20 flex flex-col gap-5 mt-10 rounded-lg h-[35rem]"
         style={{ clipPath: "polygon(0 0, 100% 0, 100% 100%, 0 95%)" }}
       >
         {tabs.map((tab, i) => (
@@ -31,7 +31,7 @@ const SevicesOverviewContainer = () => {
               onClick={() => setAct(i)}
               className={`group flex items-center rounded-md px-5 py-3 font-teko text-2xl ${
                 act === i ? "bg-white" : "bg-transparent"
-              } hover:bg-white transition-all duration-500 cursor-pointer min-w-80`}
+              } hover:bg-white transition-all duration-500 cursor-pointer min-w-64 lg:min-w-80`}
             >
               <RiArrowLeftWideFill
                 className={`transform opacity-0 ${

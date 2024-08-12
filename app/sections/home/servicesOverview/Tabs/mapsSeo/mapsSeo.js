@@ -3,8 +3,8 @@ import Progressbar from "@/app/components/progressbar/Progressbar";
 
 const MapsSeo = () => {
   return (
-    <div className="w-full lg:max-w-xl space-y-7">
-      <h1 className="text-4xl md:text-6xl font-extrabold leading-loose">
+    <div className=" space-y-7">
+      <h1 className="text-3xl md:text-5xl lg:text-6xl font-extrabold leading-loose">
         How <span className="text-primary">Analytics</span> Helping Face
         Challenges
       </h1>
@@ -16,7 +16,7 @@ const MapsSeo = () => {
       </p>
       <Progressbar title={"DIGITAL STRATEGY"} progress={79} />
       <Progressbar title={"FINANCIAL SERVICES"} progress={87} />
-      <div className="flex flex-col md:flex-row items-center justify-center md:justify-between gap-5">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 lg:gap-5">
         <AudienceCard
           icon="/icons/group.png"
           subicon="/icons/whitegroup.png"

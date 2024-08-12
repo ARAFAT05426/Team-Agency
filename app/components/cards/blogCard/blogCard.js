@@ -1,20 +1,20 @@
-import Image from "next/image";
-import Link from "next/link";
-import { FaUser } from "react-icons/fa";
 import { MdOutlineKeyboardDoubleArrowRight } from "react-icons/md";
 import { RiMessage2Fill } from "react-icons/ri";
+import { FaUser } from "react-icons/fa";
+import Image from "next/image";
+import Link from "next/link";
 
 const BlogCard = ({ blog }) => {
   return (
     <div className="group relative overflow-hidden w-full h-full shadow-md flex flex-col max-w-lg border border-slate-200 rounded-sm z-10">
-      <div className="relative group-hover:before:left-3/4 w-fit glassy">
+      <div className="relative group-hover:before:left-3/4 w-full h-60 glassy">
         <div className="group-hover:opacity-25 transition-all duration-300 w-full h-full bg-primary absolute opacity-0 z-10" />
         <Image
           src={blog?.img}
           alt={blog?.title}
-          className="w-full object-cover group-hover:rotate-3 group-hover:scale-105"
-          width={500}
-          height={400}
+          layout="fill"
+          objectFit="cover"
+          className="w-full h-full object-cover group-hover:rotate-3 group-hover:scale-105"
         />
         <div
           className="absolute inset-y-1/2 -left-12 bg-primary w-[10rem] h-10 text-center py-2 px-3 font-teko text-lg font-semibold rotate-90 text-white z-20"
@@ -51,4 +51,5 @@ const BlogCard = ({ blog }) => {
     </div>
   );
 };
+
 export default BlogCard;

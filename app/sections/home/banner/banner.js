@@ -6,8 +6,22 @@ import StaticNavbar from "@/app/components/navigation/static/staticNavbar";
 import PrimaryButton from "@/app/components/buttons/primaryButton/primaryButton";
 import Socialbox from "./socialbox/socialbox";
 import { Fade, Slide } from "react-awesome-reveal";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 const Banner = () => {
+  const router = useRouter();
+
+  const handleClick = async () => {
+    // Navigate to the services page
+    await router.push('/#booknow');
+
+    // Wait for the navigation to complete and then scroll
+    setTimeout(() => {
+      // Scroll to the 'booknow' section
+      document.getElementById("booknow")?.scrollIntoView({ behavior: 'smooth' });
+    }, 100); // Delay may need adjustment based on page load time
+  };
   return (
     <div
       className="relative bg-cover bg-center bg-no-repeat overflow-hidden"
@@ -23,10 +37,8 @@ const Banner = () => {
         </div>
       </Slide>
 
-      {/* Main Content */}
-      <div className="flex items-center justify-between w-full max-w-7xl mx-auto h-[calc(100vh-175px)] font-teko">
-        {/* Text and Buttons */}
-        <div className="space-y-3 overflow-hidden">
+      <div className="flex items-center justify-between w-full lg:max-w-7xl mx-auto font-teko py-28 px-7 lg:px-5">
+        <div className="space-y-5 overflow-hidden">
           <Fade direction="up" duration={600}>
             <div className="text-2xl text-primary font-semibold flex items-center gap-x-2">
               <DiMagento />
@@ -34,51 +46,47 @@ const Banner = () => {
             </div>
           </Fade>
           <Slide direction="left" duration={600} delay={200}>
-            <h1 className="text-white text-7xl lg:text-8xl font-semibold">
+            <h1 className="text-white text-6xl lg:text-8xl font-bold leading-tight">
               Digital Marketing <br /> Agency
             </h1>
           </Slide>
           <Fade direction="up" duration={600} delay={400}>
             <div className="flex items-center gap-x-5">
-              <button className="text-lg lg:text-2xl px-3 py-3 lg:py-4 lg:px-5 rounded-sm bg-white/25 backdrop-blur-md text-white font-semibold flex items-center gap-x-2 transition-all duration-300 hover:bg-white hover:text-primary">
+              <button onClick={handleClick} className="text-lg lg:text-2xl px-4 py-3 lg:py-4 lg:px-6 rounded bg-white/25 backdrop-blur-md text-white font-semibold flex items-center gap-x-2 transition duration-300 hover:bg-white hover:text-primary">
                 Discover More <HiArrowRight size={25} />
               </button>
+              <Link href={"/about"}>
               <PrimaryButton
                 text="Learn More"
-                className="before:bg-white bg-primary rounded-sm"
+                className="before:bg-white bg-primary rounded"
               >
                 <HiArrowRight size={25} />
               </PrimaryButton>
+              </Link>
             </div>
           </Fade>
         </div>
 
-        {/* Social Box */}
         <Fade direction="right" duration={600} delay={600}>
-            <Socialbox />
+          <Socialbox />
         </Fade>
       </div>
 
-      {/* Decorative Patterns */}
-      <Fade className="hidden md:flex" direction="up">
-        <div className="absolute bottom-0 left-0">
-          <Image
-            src="/patterns/vector-6.png"
-            alt="Decorative pattern"
-            width={350}
-            height={200}
-          />
-        </div>
+      <Fade direction="up" duration={800} className="hidden md:flex absolute bottom-0 left-0">
+        <Image
+          src="/patterns/vector-6.png"
+          alt="Decorative pattern"
+          width={350}
+          height={200}
+        />
       </Fade>
-      <Fade className="hidden md:flex" direction="up">
-        <div className="absolute bottom-0 left-0">
-          <Image
-            src="/patterns/vector-7.png"
-            alt="Decorative pattern"
-            width={400}
-            height={250}
-          />
-        </div>
+      <Fade direction="up" duration={800} className="hidden md:flex absolute bottom-0 left-0">
+        <Image
+          src="/patterns/vector-7.png"
+          alt="Decorative pattern"
+          width={300}
+          height={250}
+        />
       </Fade>
     </div>
   );

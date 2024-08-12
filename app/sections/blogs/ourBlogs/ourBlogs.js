@@ -67,7 +67,7 @@ const OurBlogs = () => {
         </Fade>
       </div>
 
-      <Zoom>
+      <Fade direction="up">
         <div className="relative group flex flex-col md:flex-row gap-5 bg-white shadow-md overflow-hidden border border-slate-300">
           <div className="glassy group-hover:before:left-3/4 relative w-full md:w-1/2">
             <div className="group-hover:opacity-25 transition-all duration-300 w-full h-full bg-primary absolute opacity-0 z-10" />
@@ -121,11 +121,11 @@ const OurBlogs = () => {
             </Link>
           </div>
         </div>
-      </Zoom>
+      </Fade>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 w-full">
         {blogs?.map((blog, i) => (
-          <Fade key={i} direction="up" delay={i * 150}>
+          <Fade key={i} direction="up" delay={i * 200}>
             <BlogCard key={i+ 1} blog={blog} />
           </Fade>
         ))}

@@ -12,7 +12,6 @@ import { toast } from "sonner";
 
 const SignupForm = ({ setAct }) => {
   const { data: session } = useSession();
-  console.log(session);
   const router = useRouter();
 
   useEffect(() => {
@@ -30,7 +29,7 @@ const SignupForm = ({ setAct }) => {
     };
 
     try {
-      const response = await toast.promise(
+      await toast.promise(
         axiosCommon.post("/auth/signup/api", newUser),
         {
           pending: "Signing up...",
@@ -38,20 +37,18 @@ const SignupForm = ({ setAct }) => {
           error: "Sign up failed. Please try again.",
         }
       );
+      const signInResponse = await signIn("credentials", {
+        email: newUser.email,
+        password: newUser.password,
+        redirect: false,
+      });
 
-      if (response.data?.insertedId) {
-        const signInResponse = await signIn("credentials", {
-          email: newUser.email,
-          password: newUser.password,
-          redirect: false,
-        });
-
-        if (signInResponse.error) {
-          toast.error(signInResponse.error);
-        } else {
-          router.push("/dashboard");
-          e.target.reset();
-        }
+      if (signInResponse.error) {
+        console.log(signInResponse?.error);
+        toast.error(signInResponse.error);
+      } else {
+        router.push("/dashboard");
+        e.target.reset();
       }
     } catch (error) {
       toast.error("Sign up failed. Please try again.");
@@ -61,9 +58,13 @@ const SignupForm = ({ setAct }) => {
 
   const handleSocialSignIn = async (provider) => {
     try {
-      await signIn(provider, { redirect: false });
-      router.push("/dashboard");
-      toast.success("Sign up with Google successful");
+      const result = await signIn(provider, { redirect: false });
+      if (result?.error) {
+        toast.error(`Sign up with ${provider} failed. Please try again.`);
+      } else {
+        router.push("/dashboard");
+        toast.success(`Sign up with ${provider} successful`);
+      }
     } catch (error) {
       toast.error(`Sign up with ${provider} failed. Please try again.`);
       console.error(`Sign up with ${provider} failed:`, error);
@@ -110,7 +111,7 @@ const SignupForm = ({ setAct }) => {
       <div className="flex items-center justify-center space-x-3">
         <button
           className="bg-slate-100 border border-slate-300/25 text-xl text-blue-500 p-4 rounded-full hover:bg-slate-200 transition transform hover:scale-105 shadow"
-          onClick={() => setAct(true)}
+          onClick={() => handleSocialSignIn("facebook")}
         >
           <FaFacebookF />
         </button>

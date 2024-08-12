@@ -3,8 +3,8 @@ import Progressbar from "@/app/components/progressbar/Progressbar";
 
 const MarketingStrategy = () => {
   return (
-    <div className="w-full lg:max-w-xl space-y-7">
-      <h1 className="text-4xl md:text-6xl font-extrabold leading-loose">
+    <div className="space-y-7">
+      <h1 className="text-3xl md:text-5xl lg:text-6xl font-extrabold leading-loose">
         The <span className="text-primary">Best Marketing</span>
         Agency In BDes
       </h1>
@@ -16,7 +16,7 @@ const MarketingStrategy = () => {
       </p>
       <Progressbar title={"DIGITAL STRATEGY"} progress={73} />
       <Progressbar title={"FINANCIAL SERVICES"} progress={93} />
-      <div className="flex flex-col md:flex-row items-center justify-center md:justify-between gap-5">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 lg:gap-5">
         <AudienceCard
           icon="/icons/group.png"
           subicon="/icons/whitegroup.png"

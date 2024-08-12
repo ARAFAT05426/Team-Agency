@@ -40,7 +40,7 @@ const Overview = () => {
         width={750}
         height={500}
       />
-      <div className="container mx-auto grid gap-3 grid-cols-1 md:grid-cols-2 lg:grid-cols-4">
+      <div className="max-w-7xl mx-auto grid gap-3 grid-cols-1 md:grid-cols-2 lg:grid-cols-4">
         {overviews?.map((overview, i) => (
           <Fade 
             key={i}

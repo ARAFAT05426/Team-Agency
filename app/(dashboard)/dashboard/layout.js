@@ -10,7 +10,7 @@ export default function DashboardLayout({ children }) {
     <>
       <QueryProvider>
         <Sidebar />
-        <main className="min-h-screen mt-12 ml-0 md:ml-60 mr-5 lg:mr-10 mb-20">
+        <main className="min-h-screen mt-12 ml-0 lg:ml-64 lg:mt-20 mr-0 lg:mr-5 px-1">
           {children}
         </main>
       </QueryProvider>

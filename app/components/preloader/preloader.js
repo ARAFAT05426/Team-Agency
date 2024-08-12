@@ -18,18 +18,12 @@ export default function Preloader({ children }) {
     <div className="handle-preloader">
       <div className="animation-preloader">
         <div className="spinner"></div>
-        <div className="txt-loading">
-          <span data-text-preloader="L" className="letters-loading">
-            L
-          </span>
-          <span data-text-preloader="O" className="letters-loading">
-            O
-          </span>
+        <div className="txt-loading font-montserrat font-semibold">
           <span data-text-preloader="A" className="letters-loading">
             A
           </span>
-          <span data-text-preloader="D" className="letters-loading">
-            D
+          <span data-text-preloader="G" className="letters-loading">
+            G
           </span>
           <span data-text-preloader="I" className="letters-loading">
             I
@@ -37,8 +31,11 @@ export default function Preloader({ children }) {
           <span data-text-preloader="N" className="letters-loading">
             N
           </span>
-          <span data-text-preloader="G" className="letters-loading">
-            G
+          <span data-text-preloader="C" className="letters-loading">
+            C
+          </span>
+          <span data-text-preloader="O" className="letters-loading">
+            O
           </span>
         </div>
       </div>

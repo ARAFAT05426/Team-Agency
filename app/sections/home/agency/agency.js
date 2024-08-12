@@ -6,6 +6,7 @@ import Heading from "@/app/components/header/heading/heading";
 import PrimaryButton from "@/app/components/buttons/primaryButton/primaryButton";
 import AgencyCards from "./agencycards/agencyCards";
 import { Fade } from "react-awesome-reveal";
+import Link from "next/link";
 
 const Agency = () => {
   return (
@@ -50,12 +51,14 @@ const Agency = () => {
                 Marketing generators on the tend to repeat.
               </div>
             </div>
+            <Link href={"/about"}>
             <PrimaryButton
               text="Learn More"
               className="bg-primary before:bg-[#0D1418] w-full max-w-xs"
             >
               <BiRightArrowAlt size={35} />
             </PrimaryButton>
+            </Link>
           </Fade>
         </div>
         <AgencyCards className="w-full lg:w-1/2 mt-10 md:mt-0" />

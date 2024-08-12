@@ -6,7 +6,7 @@ import { Fade } from "react-awesome-reveal";
 
 const BookNow = () => {
   return (
-    <div className="w-full lg:w-container mx-auto flex flex-col-reverse lg:flex-row justify-between gap-16 lg:gap-5 py-20 px-5 lg:px-0">
+    <div id="booknow" className="w-full lg:w-container mx-auto flex flex-col-reverse lg:flex-row justify-between gap-16 lg:gap-5 py-20 px-5 lg:px-0">
       <BookForm />
       <Fade direction="right">
         <div className="relative w-fit mx-auto">
@@ -21,7 +21,7 @@ const BookNow = () => {
             alt="Service Form"
             className="max-w-full"
           />
-          <Image
+          <Image  
             className="absolute bottom-1/4 rounded-md -left-16 max-w-xs"
             src="/services/author-2.png"
             alt="Author 2"

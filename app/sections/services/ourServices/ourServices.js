@@ -10,6 +10,7 @@ import "swiper/css";
 import { Navigation } from "swiper/modules";
 import Image from "next/image";
 import { Fade, Slide } from "react-awesome-reveal";
+import Link from "next/link";
 
 const OurServices = () => {
   const services = [
@@ -92,7 +93,7 @@ const OurServices = () => {
         >
           {services?.map((service, index) => (
             <SwiperSlide key={index}>
-              <Fade direction="up" delay={300}>
+              <Fade direction="down" delay={index * 150}>
                 <div className="group flex flex-col gap-6 max-w-sm h-[30rem] bg-gray-100 px-10 py-12 rounded">
                   <div className="flex flex-col flex-1">
                     <div className="relative h-20 w-20 p-3 bg-[rgba(255,74,23,0.10)] group-hover:bg-primary rounded mb-5 transition-all duration-500">
@@ -117,15 +118,17 @@ const OurServices = () => {
                     </h2>
                     <p className="text-gray-600">{service?.description}</p>
                   </div>
+                  <Link href={"#booknow"}>
                   <BsArrowRight className="h-12 w-12 p-3 mt-auto mb-0 text-5xl bg-slate-200 text-black/50 shadow-sm transition-all duration-500 group-hover:bg-primary group-hover:text-white rounded-sm" />
+                  </Link>
                 </div>
               </Fade>
             </SwiperSlide>
           ))}
         </Swiper>
         <div className="hidden lg:flex items-center justify-between absolute inset-x-0 top-1/2 transform -translate-y-1/2 w-full px-4 lg:px-0">
-          <MdOutlineKeyboardArrowLeft className="prev bg-[rgba(255,74,23,0.10)] cursor-pointerhover:bg-primary hover:text-white text-4xl lg:text-5xl text-primary p-2 rounded-sm transition-all duration-300 z-20" />
-          <MdOutlineKeyboardArrowRight className="next bg-[rgba(255,74,23,0.10)] cursor-pointerhover:bg-primary hover:text-white text-4xl lg:text-5xl text-primary p-2 rounded-sm transition-all duration-300 z-20" />
+          <MdOutlineKeyboardArrowLeft className="prev bg-[rgba(255,74,23,0.10)] cursor-pointerhover:bg-primary hover:text-white text-4xl lg:text-5xl cursor-pointer text-primary p-2 rounded-sm transition-all duration-300 z-20" />
+          <MdOutlineKeyboardArrowRight className="next bg-[rgba(255,74,23,0.10)] cursor-pointerhover:bg-primary hover:text-white text-4xl lg:text-5xl cursor-pointer text-primary p-2 rounded-sm transition-all duration-300 z-20" />
         </div>
       </div>
     </div>

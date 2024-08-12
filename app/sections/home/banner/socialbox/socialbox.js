@@ -10,7 +10,7 @@ import "./socialbox.css";
 import Image from "next/image";
 const Socialbox = () => {
   return (
-    <div className="relative hidden lg:block h-96 w-[27rem] text-white/25 text-5xl">
+    <div className="relative hidden md:block h-80 lg:h-96 w-80 lg:w-[27rem] text-white/25 text-5xl">
       <Image
         src="/patterns/earth.png"
         alt="Earth"

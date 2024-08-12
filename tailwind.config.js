@@ -18,8 +18,9 @@ module.exports = {
       },
       fontFamily: {
         'roboto': ['"Roboto Condensed"', 'sans-serif'],
-        'teko': ['Teko', 'sans-serif'],
         'rubik': ['Rubik', 'sans-serif'],
+        'montserrat': ['Montserrat', 'sans-serif'],
+        'teko': ['Teko', 'sans-serif'],
       },
       width:{
         container: "70%"

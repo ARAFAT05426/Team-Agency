@@ -1,32 +1,20 @@
-import { FaArrowDown, FaArrowUp } from "react-icons/fa";
-
-const StatCard = ({ Icon, gradiant, title, value, inc, dec }) => {
+const StatCard = ({ Icon, title, value, description, gradiant }) => {
   return (
-    <div className={`relative w-full max-w-sm flex shadow-md border border-opacity-50 rounded-lg px-7 py-5 min-h-40`}>
-      <Icon
-        className={`absolute -top-5 p-3 text-7xl bg-gradient-to-bl ${gradiant} rounded-xl shadow-lg`}
-      />
-      <div className="flex items-end justify-between w-full">
-        <div>
-          {inc && (
-            <div className="flex items-center gap-2 font-semibold text-lg text-green-500">
-              <FaArrowUp className="text-base" />
-              {inc}%
-            </div>
-          )}
-          {dec && (
-            <div className="flex items-center gap-2 font-semibold text-lg text-red-500">
-              <FaArrowDown className="text-base" />
-              {dec}%
-            </div>
-          )}
+    <div className="w-full max-w-xs lg:max-w-sm shadow rounded px-5 py-6 transition-all duration-300 hover:shadow-md border border-orange-400/25">
+      <div className="flex items-start justify-between">
+        <div className="font-montserrat">
+          <h4 className="text-lg tracking-wider font-semibold">{title}</h4>
+          <h1 className={`text-3xl tracking-wide font-bold text-transparent bg-clip-text bg-gradient-to-tr ${gradiant}`}>
+            {value}
+          </h1>
+          {description && <p className="text-xs font-semibold mt-1">{description}</p>}
         </div>
-        <div className="flex flex-col items-end gap-2 font-teko">
-          <h1 className="text-4xl font-teko font-bold opacity-90">{value}</h1>
-          <h3 className="font-semibold text-lg mr-[2px] opacity-75">{title}</h3>
+        <div className={`p-3 rounded-full bg-gradient-to-tr ${gradiant}`}>
+          <Icon className="w-9 h-9 text-white" />
         </div>
       </div>
     </div>
   );
 };
+
 export default StatCard;

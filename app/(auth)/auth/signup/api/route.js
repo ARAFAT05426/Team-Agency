@@ -12,7 +12,7 @@ export const POST = async (request) => {
       );
     }
 
-    const db = connectDB();
+    const db = await connectDB();
     const usersCollection = db.collection("users");
 
     const existingUser = await usersCollection.findOne({ email: user.email });
@@ -22,13 +22,15 @@ export const POST = async (request) => {
         { status: 409 }
       );
     } else {
-      const salt = await bcrypt.genSalt(10); // Use a reasonable salt round value
+      const salt = await bcrypt.genSalt(10);
       const hashedPassword = await bcrypt.hash(user.password, salt);
+
       const result = await usersCollection.insertOne({
         ...user,
         password: hashedPassword,
         role: "client"
       });
+      console.log(result);
       return NextResponse.json(
         {
           success: true,

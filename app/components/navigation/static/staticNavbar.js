@@ -48,13 +48,13 @@ const StaticNavbar = () => {
 
       {/* Main navbar */}
       <div className="bg-white p-0 lg:p-2 rounded-none lg:rounded-sm flex items-center justify-between">
-        <div className="bg-primary p-3 rounded-none lg:rounded">
+        <Link href={"/"} className="bg-primary p-3 rounded-none lg:rounded">
           <Image
             className="object-cover rounded h-10 lg:h-[4.7rem] w-full p-2"
             src={logo}
             alt="logo"
           />
-        </div>
+        </Link>
         <Links act={act} setAct={setAct} />
         <div className="text-black hidden lg:flex items-center gap-x-3 mr-8 cursor-pointer">
           <Link href="/dashboard">
@@ -63,10 +63,6 @@ const StaticNavbar = () => {
               className="p-3 hover:bg-primary transition-all duration-500 border-black/50 hover:text-white rounded-sm border cursor-pointer"
             />
           </Link>
-          <IoSearch
-            size={45}
-            className="p-3 hover:bg-primary transition-all duration-500 border-black/50 hover:text-white rounded-sm border cursor-pointer"
-          />
         </div>
         <div className="flex items-center gap-2">
           <Link className="flex md:hidden" href="/dashboard">

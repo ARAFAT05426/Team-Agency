@@ -37,11 +37,11 @@ const ShortBlogs = () => {
       />
       <div className="flex flex-col items-center pb-3">
         <Heading title={"News & Blogs"} />
-        <h1 className="text-7xl font-teko font-semibold text-center">
+        <h1 className="text-4xl md:text-5xl lg:text-7xl font-teko font-semibold text-center">
           News & <span className="text-primary">Articles</span>
         </h1>
       </div>
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 w-full lg:w-container mx-auto">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 w-full px-3 lg:w-container mx-auto">
         {blogs?.map((blog, i) => (
           <BlogCard key={i} blog={blog} />
         ))}

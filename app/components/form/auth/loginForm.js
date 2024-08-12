@@ -13,6 +13,7 @@ import Link from "next/link";
 const LoginForm = ({ setAct }) => {
   const router = useRouter();
   const { data: session } = useSession();
+
   useEffect(() => {
     if (session?.user) {
       router.push("/dashboard");
@@ -25,22 +26,16 @@ const LoginForm = ({ setAct }) => {
     const password = e.target.password.value;
 
     try {
-      const response = await toast.promise(
-        await signIn("credentials", {
-          email,
-          password,
-          redirect: false,
-        }),
-        {
-          loading: "Logging in...",
-          success: "Logged in successfully!",
-          error: "Login failed. Please try again.",
-        }
-      );
+      const result = await signIn("credentials", {
+        email,
+        password,
+        redirect: false,
+      });
 
-      if (response?.error) {
-        toast.error(response.error);
+      if (result.error) {
+        toast.error("Login failed. Please try again.");
       } else {
+        toast.success("Logged in successfully!");
         router.push("/dashboard");
       }
     } catch (error) {
@@ -51,9 +46,14 @@ const LoginForm = ({ setAct }) => {
 
   const handleSocialLogin = async (provider) => {
     try {
-      await signIn(provider, { redirect: false });
-      router.push("/dashboard");
-      toast.success("Sign up with Google successful");
+      const result = await signIn(provider, { redirect: false });
+
+      if (result.error) {
+        toast.error(`Sign up with ${provider} failed. Please try again.`);
+      } else {
+        toast.success(`Sign up with ${provider} successful`);
+        router.push("/dashboard");
+      }
     } catch (error) {
       toast.error(`Sign up with ${provider} failed. Please try again.`);
       console.error(`Sign up with ${provider} failed:`, error);
@@ -90,17 +90,15 @@ const LoginForm = ({ setAct }) => {
           Sign up
         </Link>
       </h1>
-      <div className="flex items-center">
+      <div className="flex items-center mt-3">
         <div className="border-t border-gray-300 flex-grow" />
-        <span className="text-gray-700 font-teko font-semibold mt-1 mx-2">
-          OR
-        </span>
+        <span className="text-gray-700 font-teko font-semibold mx-2">OR</span>
         <div className="border-t border-gray-300 flex-grow" />
       </div>
-      <div className="flex items-center justify-center space-x-3">
+      <div className="flex items-center justify-center space-x-3 mt-3">
         <button
           className="bg-slate-100 border border-slate-300/25 text-xl text-blue-500 p-4 rounded-full hover:bg-slate-200 transition transform hover:scale-105 shadow"
-          onClick={() => setAct(true)}
+          onClick={() => handleSocialLogin("facebook")}
         >
           <FaFacebookF />
         </button>
@@ -112,7 +110,7 @@ const LoginForm = ({ setAct }) => {
         </button>
         <button
           className="bg-slate-100 border border-slate-300/25 text-xl text-sky-500 p-4 rounded-full hover:bg-slate-200 transition transform hover:scale-105 shadow"
-          onClick={() => setAct(true)}
+          onClick={() => handleSocialLogin("twitter")}
         >
           <FaTwitter />
         </button>
