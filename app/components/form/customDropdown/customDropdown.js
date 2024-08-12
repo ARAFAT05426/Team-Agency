@@ -1,11 +1,15 @@
 "use client";
 import { useState } from "react";
-import { FaChevronDown } from "react-icons/fa";
-
+import { FaAngleDown, FaChevronDown } from "react-icons/fa";
+import { GoChevronDown } from "react-icons/go";
+import { MdOutlineKeyboardArrowDown } from "react-icons/md";
+import { VscChevronDown, VscTriangleDown } from "react-icons/vsc";
+import { PiCaretDownBold } from "react-icons/pi";
 const CustomDropdown = ({
-  options,
+  options = [],
   selected,
   onSelect,
+  className = "",
   placeholder = "Select an option",
 }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -18,24 +22,28 @@ const CustomDropdown = ({
   return (
     <div className="relative">
       <div
-        className={`cursor-pointer w-full py-4 px-5 bg-controller border ${
+        className={`cursor-pointer w-full peer ${
           isOpen ? "border-primary" : "border-gray-400/75"
-        } rounded-sm shadow-sm text-md font-normal flex justify-between items-center`}
+        } ${
+          className || "py-3 px-5 bg-controller border shadow-sm"
+        } rounded-sm  text-md font-normal flex gap-3 justify-between items-center transition-all duration-300`}
         onClick={() => setIsOpen(!isOpen)}
       >
         <span>{selected ? selected : placeholder}</span>
-        <FaChevronDown
+        <VscTriangleDown
           className={`${
             isOpen ? "-rotate-180" : "rotate-0"
           } text-gray-500 transition-all duration-300`}
         />
       </div>
       {isOpen && (
-        <ul className="absolute z-10 mt-1 w-full border bg-controller border-gray-400/75 rounded-sm shadow-lg max-h-60 overflow-y-auto">
+        <ul
+          className={`absolute z-10 font-montserrat font-medium text-sm mt-1 w-full border bg-slate-100 border-gray-200 shadow-md rounded-sm max-h-60 overflow-y-auto transition-all duration-300`}
+        >
           {options.map((option, index) => (
             <li
               key={index}
-              className="cursor-pointer text-black py-2 px-4 hover:bg-gray-100"
+              className="cursor-pointer text-black py-2 px-4 hover:bg-slate-200"
               onClick={() => handleSelect(option)}
             >
               {option}

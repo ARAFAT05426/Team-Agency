@@ -1,26 +1,26 @@
 import { connectDB } from "@/lib/mongodb/connectDB";
 import { NextResponse } from "next/server";
+import { ObjectId } from "mongodb";
 
 export const GET = async (request) => {
   try {
     const db = await connectDB();
-    const projects = db.collection('projects');
-
-    // Parse query parameters from the request URL
+    const projects = db.collection("projects");
     const url = new URL(request.url);
-    const statusParam = url.searchParams.get('status');
-    const countParam = url.searchParams.get('count');
+    const statusParam = url.searchParams.get("status");
+    const searchParam = url.searchParams.get("search");
+    const countParam = url.searchParams.get("count");
 
     const totalCount = await projects.countDocuments();
 
-    if (countParam === 'true') {
-      // Retrieve counts for each status
-      const [activeCount, pendingCount, completedCount, canceledCount] = await Promise.all([
-        projects.countDocuments({ status: 'active' }),
-        projects.countDocuments({ status: 'pending' }),
-        projects.countDocuments({ status: 'completed' }),
-        projects.countDocuments({ status: 'canceled' })
-      ]);
+    if (countParam === "true") {
+      const [activeCount, pendingCount, completedCount, canceledCount] =
+        await Promise.all([
+          projects.countDocuments({ status: "active" }),
+          projects.countDocuments({ status: "pending" }),
+          projects.countDocuments({ status: "completed" }),
+          projects.countDocuments({ status: "canceled" }),
+        ]);
 
       return NextResponse.json({
         success: true,
@@ -28,22 +28,37 @@ export const GET = async (request) => {
           active: activeCount,
           pending: pendingCount,
           completed: completedCount,
-          canceled: canceledCount
-        }
+          canceled: canceledCount,
+        },
       });
     }
+
     let query = {};
     if (statusParam) {
       query.status = statusParam;
     }
-    const result = await projects.find(query).toArray();
-    return NextResponse.json({ success: true, projects: result, total: totalCount });
+    if (searchParam) {
+      query.$or = [
+        { projectTitle: { $regex: searchParam, $options: "i" } },
+        { description: { $regex: searchParam, $options: "i" } },
+      ];
+    }
 
+    const result = await projects.find(query).toArray();
+    return NextResponse.json({
+      success: true,
+      projects: result,
+      total: totalCount,
+    });
   } catch (error) {
-    console.error('Error fetching projects:', error);
+    console.error("Error fetching projects:", error);
     return NextResponse.json(
-      { success: false, message: 'Failed to fetch projects', error: error.message },
-      { status: 500, headers: { 'Content-Type': 'application/json' } }
+      {
+        success: false,
+        message: "Failed to fetch projects",
+        error: error.message,
+      },
+      { status: 500, headers: { "Content-Type": "application/json" } }
     );
   }
 };
@@ -99,7 +114,7 @@ export const PUT = async (request) => {
     console.log("formData:", formData, "id:", id);
 
     const result = await projects.updateOne(
-      { _id: id }, // Filter by ID
+      { _id: new ObjectId(id) }, // Filter by ID
       { $set: formData } // Update with new data
     );
 

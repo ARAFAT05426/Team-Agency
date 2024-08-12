@@ -7,6 +7,7 @@ import { signOut } from "next-auth/react";
 import { useState } from "react";
 import { toast } from "sonner";
 import Link from "next/link";
+import Image from "next/image";
 
 const Sidebar = () => {
   const path = usePathname();
@@ -28,9 +29,7 @@ const Sidebar = () => {
           <ToggleBar isActive={act} onClick={() => setAct(!act)} />
         </div>
         <Link href="/">
-          <h1 className="text-2xl text-primary font-montserrat font-bold">
-            LoGo
-          </h1>
+        <Image width={100} height={75} src={`/common/navlogo.svg`} alt="logo" />
         </Link>
         <FaBell className="text-2xl cursor-pointer hover:text-teal-500 transition-colors duration-300" />
       </nav>

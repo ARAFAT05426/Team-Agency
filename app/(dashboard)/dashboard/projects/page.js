@@ -1,4 +1,10 @@
+import MannageProjects from "../../../sections/dashboard/projects/mannageProjects/mannageProjects";
+
 const Page = () => {
-  return <div></div>;
+  return (
+    <>
+      <MannageProjects />
+    </>
+  );
 };
 export default Page;

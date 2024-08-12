@@ -14,7 +14,6 @@ const ProjectsOverview = () => {
       }
     },
   });
-  console.log(data);
   const chartData = [
     { name: "Active", value: data?.counts?.active || 0 },
     { name: "Pending", value: data?.counts?.pending || 0 },

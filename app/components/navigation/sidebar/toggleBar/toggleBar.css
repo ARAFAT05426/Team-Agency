@@ -14,7 +14,7 @@
   }
   
   .toggle-menu span {
-    background-color: #1abc9c;
+    background-color: #FF4A17;
     content: "";
     display: block;
     height: 2px;
@@ -29,7 +29,7 @@
   
   .toggle-menu span:before,
   .toggle-menu span:after {
-    background-color: #1abc9c;
+    background-color: #FF4A17;
     content: "";
     display: block;
     height: 2px;

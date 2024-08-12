@@ -21,9 +21,7 @@ const TypeDate = ({ selectedDate, setSelectedDate, placeholder = "Select Date", 
     <div className="relative w-full">
       <label
         htmlFor={name.toLowerCase()}
-        className={`w-full bg-controller border border-secondary/25 px-4 py-4 rounded-[3px] focus-within:border-primary outline-none flex items-center justify-between cursor-pointer ${
-          !localDate ? "text-black" : ""
-        }`}
+        className="w-full bg-controller border border-secondary/25 px-4 py-3 rounded-[3px] flex items-center justify-between cursor-pointer focus-within:border-primary transition-all duration-300"
       >
         <DatePicker
           id={name.toLowerCase()}
@@ -32,7 +30,7 @@ const TypeDate = ({ selectedDate, setSelectedDate, placeholder = "Select Date", 
           onChange={handleDateChange}
           dateFormat="MMMM d, yyyy"
           placeholderText={placeholder}
-          className="w-full bg-controller border-none outline-none text-black"
+          className="w-full bg-transparent border-none outline-none text-black"
           popperClassName="react-datepicker-popper"
           aria-label={placeholder}
         />

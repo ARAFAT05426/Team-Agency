@@ -1,13 +1,13 @@
 "use client";
-import ProjectsOverview from "./projectsOverview/projectsOverview";
+import ProjectsOverview from "./overviewChart";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
 import { FaExclamationTriangle } from "react-icons/fa";
 import axiosCommon from "@/lib/axios/axiosCommon";
-import { useQuery } from "@tanstack/react-query";
 import Table from "@/app/components/table/table";
+import { useQuery } from "@tanstack/react-query";
 
-const Projects = () => {
-  const { data, isLoading, isError, error, refetch } = useQuery({
+const OverviewChart = () => {
+  const { data, isLoading, isError, error } = useQuery({
     queryKey: ["completedProjects"],
     queryFn: async () => {
       try {
@@ -93,4 +93,4 @@ const Projects = () => {
   );
 };
 
-export default Projects;
+export default OverviewChart;

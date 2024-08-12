@@ -1,11 +1,11 @@
-import Projects from "@/app/sections/dashboard/projects/projects";
+import CompletedProjects from "@/app/sections/dashboard/statistics/projectsOverview/completedProjects";
 import Statistics from "@/app/sections/dashboard/statistics/statistics/statistics";
 
 const Page = () => {
   return (
     <>
       <Statistics />
-      <Projects />
+      <CompletedProjects />
     </>
   );
 };

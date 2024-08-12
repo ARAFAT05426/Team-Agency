@@ -1,5 +1,3 @@
-import { useState } from "react";
-
 const TypeText = ({
   name,
   placeholder,
@@ -10,41 +8,26 @@ const TypeText = ({
   onChange,
   type = "text",
 }) => {
-  const [isFocused, setIsFocused] = useState(false);
-
   return (
     <div
-      className={`w-full border px-3 py-1 rounded-[3px] flex items-center justify-between ${
-        isFocused ? "border-primary" : "border-secondary/50"
-      } transition-all duration-300 border ${bg ? bg : "bg-none"}`}
+      className={`w-full px-3 py-1 rounded-[3px] flex items-center justify-between border transition-all duration-300 focus-within:border-primary ${
+        bg ? bg : "bg-none"
+      }`}
     >
       <input
-        className={`outline-none flex-1 py-2 md:py-3 bg-transparent ${
-          isFocused
-            ? "placeholder-primary text-primary"
-            : "placeholder-black text-secondary"
+        className="outline-none flex-1 py-2 md:py-2 bg-transparent placeholder-black text-secondary focus:placeholder-primary focus:text-primary"
+        placeholder={`${placeholder} ${name}${
+          isRequired ? " *" : " (optional)"
         }`}
-        placeholder={
-          placeholder +
-          " " +
-          name +
-          (isRequired ? " *" : " (optional)")
-        }
         type={type}
         name={name.toLowerCase()}
         id={name}
         required={isRequired}
         value={value}
         onChange={onChange}
-        onFocus={() => setIsFocused(true)}
-        onBlur={() => setIsFocused(false)}
       />
       <div className="h-6">
-        <IconComponent
-          className={`${
-            isFocused ? "text-primary" : "text-secondary"
-          } transition-all duration-300 cursor-pointer`}
-        />
+        <IconComponent className="transition-all duration-300 cursor-pointer text-secondary" />
       </div>
     </div>
   );
