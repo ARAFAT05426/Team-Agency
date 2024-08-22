@@ -2,7 +2,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import { BiSolidError } from "react-icons/bi";
 import { FiAlertCircle } from "react-icons/fi";
 
-const Modal404 = ({ isOpen, setIsOpen }) => {
+const Modal404 = ({ isOpen = false, setIsOpen }) => {
   return (
     <AnimatePresence>
       {isOpen && (

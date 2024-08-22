@@ -66,7 +66,7 @@ const OurTeam = () => {
                     width={500}
                     height={500}
                   />
-                  <div className="teamimgoverlay"></div>
+
                 </div>
                 <div className="flex flex-col items-center teamcontent bg-white py-3 transition-all duration-500 ease-in-out">
                   <h1 className="text-2xl font-teko font-medium">

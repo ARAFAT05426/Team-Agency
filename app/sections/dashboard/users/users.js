@@ -40,13 +40,13 @@ const Users = () => {
 
   if (isLoading)
     return (
-      <div className="flex justify-center items-center min-h-screen">
+      <div className="flex justify-center items-center min-h-96">
         <AiOutlineLoading3Quarters className="animate-spin text-4xl text-primary" />
       </div>
     );
   if (isError)
     return (
-      <div className="flex justify-center items-center min-h-screen text-red-600">
+      <div className="flex justify-center items-center min-h-96 text-red-600">
         <FaExclamationTriangle className="text-3xl mr-2" />
         <span>Error: {error.message}</span>
       </div>

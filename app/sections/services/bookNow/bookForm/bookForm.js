@@ -40,14 +40,12 @@ const BookForm = () => {
     <form onSubmit={handleBooking} className="py-5 grid grid-cols-1 lg:grid-cols-2 gap-7 w-full lg:w-1/2">
       <TypeText
         placeholder="Enter your name"
-        bg={"bg-controller"}
         name="name"
         icon={AiOutlineUser}
         isRequired
       />
       <TypeText
         placeholder="Enter your email"
-        bg={"bg-controller"}
         name="email"
         icon={AiOutlineMail}
         isRequired
@@ -63,10 +61,10 @@ const BookForm = () => {
         <div
           className={`w-full border py-3 px-5 flex items-start ${
             isFocused ? "border-primary" : "border-gray-300"
-          } transition-all duration-300 rounded-sm bg-controller`}
+          } transition-all duration-300 rounded-sm`}
         >
           <textarea
-            className="bg-controller outline-none placeholder-secondary/95 w-full"
+            className=" outline-none placeholder-secondary/95 w-full"
             placeholder="Enter your special instruction  |  N/A *"
             rows={5}
             required

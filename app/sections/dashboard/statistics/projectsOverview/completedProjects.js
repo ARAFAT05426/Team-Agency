@@ -20,7 +20,6 @@ const OverviewChart = () => {
       }
     },
   });
-  console.log(data);
 
   if (isLoading) {
     return (
@@ -34,7 +33,7 @@ const OverviewChart = () => {
     return (
       <div className="flex justify-center items-center min-h-96 text-red-600">
         <FaExclamationTriangle className="text-3xl mr-2" />
-        <span>Error: {error.message}</span>
+        <span>Error: {error?.message}</span>
       </div>
     );
   }

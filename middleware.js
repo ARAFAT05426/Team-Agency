@@ -19,7 +19,7 @@ export const middleware = async (request) => {
 export const config = {
   matcher: [
     "/dashboard",
-    "/dashboard/blogs",
+    "/dashboard/projects",
     "/dashboard/users",
     "/dashboard/seo",
   ],

@@ -6,7 +6,15 @@ export const GET = async (request) => {
   try {
     const db = await connectDB();
     const usersCollection = db.collection("users");
-    const users = await usersCollection.find().toArray();
+
+    const url = new URL(request.url);
+    const role = url.searchParams.get("role");
+    const query = {};
+    if (role) {
+      query.role = role;
+    }
+
+    const users = await usersCollection.find(query).toArray();
 
     return NextResponse.json({ success: true, users: users });
   } catch (error) {
@@ -17,6 +25,7 @@ export const GET = async (request) => {
     });
   }
 };
+
 export const PUT = async (request) => {
   const updatedData = await request.json();
   console.log(updatedData);

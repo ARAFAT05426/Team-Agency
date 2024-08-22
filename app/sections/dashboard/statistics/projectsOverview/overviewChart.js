@@ -21,7 +21,7 @@ const ProjectsOverview = () => {
     { name: "Completed", value: data?.counts?.completed || 0 },
   ];
 
-  const COLORS = ["#1F77B4", "#FF7F0E", "#2CA02C", "#D62728"];
+  const COLORS = ["#1F77B4", "#FF7F0E", "#D62728", "#2CA02C"];
 
   return (
     <div className="border shadow-md rounded-md w-full max-w-full lg:max-w-lg mx-auto py-2">

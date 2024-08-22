@@ -1,27 +1,38 @@
-import { useState, useEffect } from "react";
-import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { FaCalendarAlt } from "react-icons/fa";
+import { useState, useEffect } from "react";
+import DatePicker from "react-datepicker";
 
-const TypeDate = ({ selectedDate, setSelectedDate, placeholder = "Select Date", name = "date" }) => {
-  const [localDate, setLocalDate] = useState(selectedDate ? new Date(selectedDate) : null);
+const TypeDate = ({
+  selectedDate,
+  setSelectedDate,
+  placeholder = "Select Date",
+  name = "date",
+}) => {
+  const [localDate, setLocalDate] = useState(
+    selectedDate ? new Date(selectedDate) : null
+  );
 
   useEffect(() => {
-    setLocalDate(selectedDate ? new Date(selectedDate) : null);
+    if (selectedDate && !isNaN(new Date(selectedDate))) {
+      setLocalDate(new Date(selectedDate));
+    } else {
+      setLocalDate(null);
+    }
   }, [selectedDate]);
 
   const handleDateChange = (date) => {
     if (date instanceof Date && !isNaN(date)) {
       setLocalDate(date);
-      setSelectedDate({ target: { name, value: date.toISOString() } });
+      setSelectedDate(date.toISOString());
     }
   };
 
   return (
-    <div className="relative w-full">
+    <div className="relative w-full text-xs md:text-base">
       <label
         htmlFor={name.toLowerCase()}
-        className="w-full bg-controller border border-secondary/25 px-4 py-3 rounded-[3px] flex items-center justify-between cursor-pointer focus-within:border-primary transition-all duration-300"
+        className="w-full border border-secondary/25 px-4 py-3 rounded-[3px] flex items-center justify-between cursor-pointer focus-within:border-primary transition-all duration-300"
       >
         <DatePicker
           id={name.toLowerCase()}

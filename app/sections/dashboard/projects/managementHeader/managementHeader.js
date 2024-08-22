@@ -1,14 +1,29 @@
 import CustomDropdown from "@/app/components/form/customDropdown/customDropdown";
 import { FaPlus } from "react-icons/fa";
 import { IoSearch } from "react-icons/io5";
+import { MdOutlineRotateRight } from "react-icons/md";
+import { useState } from "react";
 
-const ManagementHeader = ({ search, setSearch, filterBy, setFilterBy }) => {
+const ManagementHeader = ({
+  handleReset,
+  searchValue, // Accept searchValue prop
+  setSearch,
+  filterBy = "",
+  setFilterBy,
+  setIsAddProjectModalOpen,
+}) => {
+  const [localSearchTerm, setLocalSearchTerm] = useState(searchValue);
+
   const handleFilterBy = (option) => {
     setFilterBy(option);
   };
 
   const handleSearchChange = (e) => {
-    setSearch(e.target.value);
+    setLocalSearchTerm(e.target.value); // Update local search term as the user types
+  };
+
+  const handleSearchClick = () => {
+    setSearch(localSearchTerm); // Trigger search when the icon is clicked
   };
 
   return (
@@ -17,20 +32,30 @@ const ManagementHeader = ({ search, setSearch, filterBy, setFilterBy }) => {
         Projects
       </h1>
       <div className="flex flex-wrap items-start md:items-center gap-3 w-full sm:w-auto">
+        {/* Reset Button */}
+        <button
+          className="p-2 border border-gray-300 hover:border-primary/75 transition-all duration-300"
+          onClick={handleReset}
+        >
+          <MdOutlineRotateRight className="text-2xl" />
+        </button>
         {/* Search Bar */}
         <div className="relative flex items-center w-full sm:w-64">
           <label
             htmlFor="search"
             className="relative flex items-center border border-gray-300 rounded-sm py-2 px-3 bg-white shadow-sm transition-all duration-300 focus-within:border-primary w-full"
           >
-            <IoSearch className="text-gray-500 absolute left-3" />
             <input
               type="text"
               name="search"
               placeholder="Search..."
-              className="peer outline-none w-full bg-transparent pl-10 text-gray-700 placeholder-gray-400 rounded-md"
-              onChange={handleSearchChange}
-              value={search}
+              value={localSearchTerm} // Bind the value to localSearchTerm
+              className="peer outline-none w-full bg-transparent pl-3 text-gray-700 placeholder-gray-400 rounded-md"
+              onChange={handleSearchChange} // Update local state on change
+            />
+            <IoSearch
+              className="text-gray-600 text-2xl absolute right-3 cursor-pointer"
+              onClick={handleSearchClick} // Trigger search on click
             />
           </label>
         </div>
@@ -41,11 +66,14 @@ const ManagementHeader = ({ search, setSearch, filterBy, setFilterBy }) => {
           options={["completed", "in progress", "pending", "canceled"]}
           selected={filterBy}
           onSelect={handleFilterBy}
-          placeholder="Sort By"
+          placeholder="Filter"
         />
 
         {/* Add Project Button */}
-        <button className="flex items-center gap-2 px-4 py-[0.8rem] rounded-sm font-montserrat font-semibold text-xs text-white bg-primary">
+        <button
+          onClick={() => setIsAddProjectModalOpen(true)}
+          className="flex items-center gap-2 px-4 py-[0.8rem] rounded font-montserrat font-semibold text-xs text-white bg-primary"
+        >
           <FaPlus className="mr-1" />
           Add Project
         </button>

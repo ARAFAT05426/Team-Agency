@@ -45,7 +45,7 @@ const Sidebar = () => {
                 key={i}
                 href={sideBarLink.path}
                 onClick={() => setAct(false)}
-                className={`font-montserrat font-semibold flex items-center gap-3 px-10 py-3 transition-all duration-300 border-r-2 ${
+                className={`font-montserrat font-semibold flex items-center gap-3 px-10 py-3 transition-all duration-300 border-r-[3px] ${
                   path === sideBarLink.path
                     ? "border-r-primary text-primary"
                     : "border-r-transparent hover:border-r-primary hover:tracking-[0.15em] hover:text-primary/75"
@@ -59,7 +59,7 @@ const Sidebar = () => {
         </div>
         <FaSignOutAlt
           onClick={handleSignOut}
-          className="text-3xl mx-auto mb-8 cursor-pointer hover:text-teal-500 transition-colors duration-300"
+          className="text-3xl mx-auto mb-8 cursor-pointer hover:text-primary transition-colors duration-300"
         />
       </aside>
     </div>

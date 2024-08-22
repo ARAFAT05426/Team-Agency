@@ -1,17 +1,19 @@
+import React from "react";
+
 const TypeText = ({
-  name,
-  placeholder,
+  name = "",
+  placeholder = "",
   icon: IconComponent,
   isRequired = false,
-  bg,
+  bg = "",
   value,
   onChange,
   type = "text",
 }) => {
   return (
     <div
-      className={`w-full px-3 py-1 rounded-[3px] flex items-center justify-between border transition-all duration-300 focus-within:border-primary ${
-        bg ? bg : "bg-none"
+      className={`w-full px-3 py-1 rounded-[3px] text-xs md:text-base flex items-center justify-between border transition-all duration-300 focus-within:border-primary ${
+        bg ? bg : "bg-transparent"
       }`}
     >
       <input
@@ -19,15 +21,17 @@ const TypeText = ({
         placeholder={`${placeholder} ${name}${
           isRequired ? " *" : " (optional)"
         }`}
-        type={type}
-        name={name.toLowerCase()}
-        id={name}
+        name={name?.toLowerCase()}
+        value={value ? value : undefined}
         required={isRequired}
-        value={value}
         onChange={onChange}
+        type={type}
+        id={name}
       />
       <div className="h-6">
-        <IconComponent className="transition-all duration-300 cursor-pointer text-secondary" />
+        {IconComponent && (
+          <IconComponent className="transition-all duration-300 cursor-pointer text-secondary" />
+        )}
       </div>
     </div>
   );

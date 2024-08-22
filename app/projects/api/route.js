@@ -10,6 +10,8 @@ export const GET = async (request) => {
     const statusParam = url.searchParams.get("status");
     const searchParam = url.searchParams.get("search");
     const countParam = url.searchParams.get("count");
+    const pageParam = parseInt(url.searchParams.get("page")) || 1;
+    const pageSizeParam = parseInt(url.searchParams.get("pageSize")) || 10;
 
     const totalCount = await projects.countDocuments();
 
@@ -41,14 +43,25 @@ export const GET = async (request) => {
       query.$or = [
         { projectTitle: { $regex: searchParam, $options: "i" } },
         { description: { $regex: searchParam, $options: "i" } },
+        { "client.name": { $regex: searchParam, $options: "i" } },
       ];
     }
 
-    const result = await projects.find(query).toArray();
+    const skip = (pageParam - 1) * pageSizeParam;
+    const result = await projects
+      .find(query)
+      .sort({ "dates.creationDate": -1 })
+      .skip(skip)
+      .limit(pageSizeParam)
+      .toArray();
+
     return NextResponse.json({
       success: true,
       projects: result,
       total: totalCount,
+      page: pageParam,
+      pageSize: pageSizeParam,
+      totalPages: Math.ceil(totalCount / pageSizeParam),
     });
   } catch (error) {
     console.error("Error fetching projects:", error);
@@ -69,7 +82,6 @@ export const POST = async (request) => {
     const projects = db.collection("projects");
 
     const order = await request.json();
-    console.log("Order Data:", order);
 
     if (!order || typeof order !== "object") {
       return NextResponse.json(
@@ -77,12 +89,25 @@ export const POST = async (request) => {
         { status: 400 }
       );
     }
+    console.log(order);
 
-    const result = await projects.insertOne({
+    const projectData = {
       ...order,
+      dates: {
+        creationDate: new Date(),
+        deadlineDate: order.date,
+      },
+      client: {
+        name: order?.client,
+        email: order.clientEmail,
+        profileImageUrl: "",
+      },
+      teamMembers: [],
       status: "pending",
-      progress: 0,
-    });
+      progressPercentage: 0,
+    };
+
+    const result = await projects.insertOne(projectData);
 
     if (result.acknowledged) {
       return NextResponse.json({
@@ -108,16 +133,31 @@ export const PUT = async (request) => {
   try {
     const db = await connectDB();
     const projects = db.collection("projects");
-
     const { formData, id } = await request.json();
-
-    console.log("formData:", formData, "id:", id);
+    const url = new URL(request.url);
+    const updateType = url.searchParams.get("update");
+    let updateQuery = {};
+    if (updateType) {
+      if (updateType === "client") {
+        updateQuery = { $set: { client: formData.client } };
+      } else if (updateType === "teamMembers") {
+        updateQuery = { $set: { teamMembers: formData.teamMembers } };
+      } else if (updateType === "projectFiles") {
+        updateQuery = { $set: { projectFiles: formData.projectFiles } };
+      } else {
+        return NextResponse.json({
+          success: false,
+          message: "Invalid update type specified",
+        });
+      }
+    } else {
+      updateQuery = { $set: formData };
+    }
 
     const result = await projects.updateOne(
-      { _id: new ObjectId(id) }, // Filter by ID
-      { $set: formData } // Update with new data
+      { _id: new ObjectId(id) },
+      updateQuery
     );
-
     if (result.acknowledged && result.matchedCount > 0) {
       return NextResponse.json({
         success: true,
