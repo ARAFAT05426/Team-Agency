@@ -58,13 +58,10 @@ const AddWorker = ({ project, isOpen = false, setIsOpen, refetch }) => {
     mutationFn: async () => {
       try {
         setLoading(true);
-        const { data } = await axiosCommon.put(
-          "/projects/api?update=teamMembers",
-          {
-            id: project?._id,
-            formData: { teamMembers: members },
-          }
-        );
+        const { data } = await axiosCommon.patch("/projects/api", {
+          id: project?._id,
+          formData: { teamMembers: members },
+        });
         return data;
       } catch (error) {
         throw new Error("Failed to update team members");

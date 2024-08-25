@@ -1,5 +1,4 @@
 import { connectDB } from "@/lib/mongodb/connectDB";
-import { ObjectId } from "mongodb";
 import { NextResponse } from "next/server";
 
 export const GET = async (request) => {
@@ -9,14 +8,43 @@ export const GET = async (request) => {
 
     const url = new URL(request.url);
     const role = url.searchParams.get("role");
+    const search = url.searchParams.get("search") || ""; // Search keyword for names or emails
+    const page = parseInt(url.searchParams.get("page")) || 1; // Default to page 1 if not provided
+    const limit = parseInt(url.searchParams.get("limit")) || 10; // Default to 10 users per page if not provided
+
     const query = {};
+
+    // Apply role filter if provided
     if (role) {
       query.role = role;
     }
 
-    const users = await usersCollection.find(query).toArray();
+    // Apply search filter on name and email fields
+    if (search) {
+      query.$or = [
+        { name: { $regex: search, $options: "i" } }, // Case-insensitive search on name
+        { email: { $regex: search, $options: "i" } }, // Case-insensitive search on email
+      ];
+    }
 
-    return NextResponse.json({ success: true, users: users });
+    const totalUsers = await usersCollection.countDocuments(query); // Get total count of matching users
+    const totalPages = Math.ceil(totalUsers / limit); // Calculate total pages
+
+    const users = await usersCollection
+      .find(query)
+      .skip((page - 1) * limit) // Skip users based on the current page
+      .limit(limit) // Limit the number of users returned
+      .toArray();
+
+    return NextResponse.json({
+      success: true,
+      users: users,
+      pagination: {
+        currentPage: page,
+        totalPages: totalPages,
+        totalUsers: totalUsers,
+      },
+    });
   } catch (error) {
     console.error("Error fetching users:", error);
     return NextResponse.json({
@@ -26,27 +54,48 @@ export const GET = async (request) => {
   }
 };
 
-export const PUT = async (request) => {
+export const PATCH = async (request) => {
   const updatedData = await request.json();
-  console.log(updatedData);
   try {
     const db = await connectDB();
     const usersCollection = db.collection("users");
 
+    // Check if user exists
+    const user = await usersCollection.findOne({ email: updatedData?.email });
+    if (!user) {
+      return NextResponse.json({
+        success: false,
+        message: "User not found",
+      });
+    }
+
     // Update the user data
+    const updateFields = {};
+    if (updatedData.role) updateFields.role = updatedData.role;
+    if (updatedData.position) updateFields.position = updatedData.position;
+
     const result = await usersCollection.updateOne(
-      { _id: new ObjectId(updatedData?.id) },
-      { $set: updatedData }
+      { email: updatedData?.email },
+      { $set: updateFields }
     );
 
-    if (result) {
-      return NextResponse.json({ success: true, message: 'user role updated successfully' });
+    if (result.modifiedCount > 0) {
+      return NextResponse.json({
+        success: true,
+        message: "User updated successfully",
+      });
     } else {
-      return NextResponse.json({ success: false, message: 'Failed to update user role' });
+      return NextResponse.json({
+        success: false,
+        message: "No changes made to the user",
+      });
     }
   } catch (error) {
-    console.error('Error updating:', error);
-    return NextResponse.json({ success: false, message: 'An error occurred. Please try again later.' });
+    console.error("Error updating:", error);
+    return NextResponse.json({
+      success: false,
+      message: "An error occurred. Please try again later.",
+    });
   }
 };
 
@@ -57,7 +106,7 @@ export const DELETE = async (request) => {
 
     const { id } = await request.json();
 
-    const result = await users.deleteOne({ _id: new ObjectId(id) });
+    const result = await users.deleteOne({ email: id });
 
     if (result.acknowledged && result.deletedCount > 0) {
       return NextResponse.json({

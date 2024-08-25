@@ -4,21 +4,23 @@ import { LuClipboardEdit } from "react-icons/lu";
 import { ImStatsBars2 } from "react-icons/im";
 import { TbUsersPlus } from "react-icons/tb";
 import Link from "next/link";
+
 const ProjectManageCard = ({ project = {}, setAddWorker, setEditProject }) => {
   const {
     progressPercentage,
-    projectTitle,
+    title,
     description,
     teamMembers,
     priority,
     status,
     client,
-    dates,
+    createdOn,
+    deadline,
   } = project;
 
   return (
     <div className="relative font-montserrat border border-gray-300 shadow rounded pt-10 p-5 flex flex-col gap-3">
-      {/* Pririty ribon shape */}
+      {/* Priority ribbon shape */}
       <div
         className={`absolute top-0 left-0 ${
           (priority?.toLowerCase() === "high" && "bg-primary") ||
@@ -34,24 +36,24 @@ const ProjectManageCard = ({ project = {}, setAddWorker, setEditProject }) => {
         href={`/dashboard/projects/${project?._id}`}
         className="relative text-xl font-semibold text-gray-800 pr-3"
       >
-        {projectTitle}{" "}
-        <LuClipboardEdit
-          onClick={() => setEditProject(project)}
-          className="absolute right-1 inset-y-1 cursor-pointer text-2xl p-1 rounded bg-primary text-white"
-        />
+        {title}{" "}
       </Link>
+      <LuClipboardEdit
+        onClick={() => setEditProject(project)}
+        className="absolute right-1 inset-y-1 cursor-pointer text-2xl p-1 rounded bg-primary text-white"
+      />
 
-      {/* Category and Dates */}
+      {/* Dates */}
       <div className="flex items-center gap-2 text-xs text-gray-700">
         <RiCalendar2Line className="text-primary" />
         <p className="font-semibold">
-          {new Date(dates?.creationDate)?.toLocaleDateString("en-US", {
+          {new Date(createdOn)?.toLocaleDateString("en-US", {
             month: "short",
             day: "numeric",
             year: "numeric",
           })}{" "}
           ---{" "}
-          {new Date(dates?.deadlineDate)?.toLocaleDateString("en-US", {
+          {new Date(deadline)?.toLocaleDateString("en-US", {
             month: "short",
             day: "numeric",
             year: "numeric",
@@ -85,7 +87,7 @@ const ProjectManageCard = ({ project = {}, setAddWorker, setEditProject }) => {
         </div>
       </div>
 
-      {/* Files and Progress */}
+      {/* Progress */}
       <div className="flex items-center gap-2 text-gray-700">
         <RiProgress6Line className="text-primary" />
         <p className="text-xs font-semibold">{progressPercentage}% Complete</p>

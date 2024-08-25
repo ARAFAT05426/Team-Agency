@@ -84,8 +84,8 @@ const EditProjectModal = ({ isOpen, setIsOpen, project = {}, refetch }) => {
           <TypeText
             isRequired={true}
             icon={FaRegFolderOpen}
-            value={updatedData?.projectTitle}
-            onChange={(e) => handleInputChange("projectTitle", e.target.value)}
+            value={updatedData?.title}
+            onChange={(e) => handleInputChange("title", e.target.value)}
           />
         </div>
         <div>
@@ -139,7 +139,7 @@ const EditProjectModal = ({ isOpen, setIsOpen, project = {}, refetch }) => {
             Deadline
           </h3>
           <TypeDate
-            selectedDate={updatedData?.dates?.deadlineDate}
+            selectedDate={updatedData?.deadline}
             setSelectedDate={(date) => handleDateChange("deadlineDate", date)}
           />
         </div>

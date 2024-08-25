@@ -1,3 +1,5 @@
+"use client";
+
 import CustomDropdown from "../../form/customDropdown/customDropdown";
 import ReusableModal from "../reusableModal/reusableModal";
 import TypeText from "../../form/typeText/typeText";
@@ -15,27 +17,27 @@ const AddProjectModal = ({ isOpen, setIsOpen, refetch }) => {
   const [date, setDate] = useState(new Date());
   const [priority, setPriority] = useState("");
   const [loading, setLoading] = useState(false);
-  const [errors, setErrors] = useState({}); // State to track errors
+  const [errors, setErrors] = useState({});
 
   const priorityOptions = ["high", "medium", "low"];
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     const target = e.target;
-    const projectTitle = target.projecttitle.value;
+    const title = target.title.value;
     const budget = target.budget.value;
     const client = target.client.value;
-    const clientEmail = target.clientemail.value;
+    const email = target.email.value;
     const description = target.description.value;
 
     const newErrors = {};
 
     // Validate each field
-    if (!projectTitle) newErrors.projectTitle = "Project title is required";
+    if (!title) newErrors.title = "Project title is required";
     if (!budget) newErrors.budget = "Budget is required";
     if (!priority) newErrors.priority = "Priority is required";
     if (!client) newErrors.client = "Client is required";
-    if (!clientEmail) newErrors.clientEmail = "Client email is required";
+    if (!email) newErrors.email = "Client email is required";
     if (!description) newErrors.description = "Description is required";
 
     if (Object.keys(newErrors).length > 0) {
@@ -45,12 +47,14 @@ const AddProjectModal = ({ isOpen, setIsOpen, refetch }) => {
 
     // If no errors, proceed with submission
     const projectData = {
-      projectTitle,
-      date,
-      budget,
+      title,
+      deadline: date,
+      budget: Number(budget),
       priority,
-      client,
-      clientEmail,
+      client: {
+        name: client,
+        email: email,
+      },
       description,
     };
 
@@ -90,25 +94,25 @@ const AddProjectModal = ({ isOpen, setIsOpen, refetch }) => {
         <div>
           <TypeText
             placeholder="Set"
-            name="projecttitle"
+            name="title"
             icon={FaRegFileAlt}
             isRequired
           />
-          {errors.projectTitle && (
-            <p className="text-red-500 text-[0.5rem]">{errors.projectTitle}</p>
+          {errors.title && (
+            <p className="text-red-500 text-xs">{errors.title}</p>
           )}
         </div>
         <TypeDate selectedDate={date} setSelectedDate={setDate} />
         <div>
           <TypeText
             placeholder="Set"
-            name="Budget"
+            name="budget"
             type="number"
             icon={RiCoinsLine}
             isRequired
           />
           {errors.budget && (
-            <p className="text-red-500 text-[0.5rem]">{errors.budget}</p>
+            <p className="text-red-500 text-xs">{errors.budget}</p>
           )}
         </div>
         <div>
@@ -119,33 +123,33 @@ const AddProjectModal = ({ isOpen, setIsOpen, refetch }) => {
             onSelect={setPriority}
           />
           {errors.priority && (
-            <p className="text-red-500 text-[0.5rem]">{errors.priority}</p>
+            <p className="text-red-500 text-xs">{errors.priority}</p>
           )}
         </div>
         <div>
-          <TypeText placeholder="Set" name="Client" icon={FiUser} isRequired />
+          <TypeText placeholder="Set" name="client" icon={FiUser} isRequired />
           {errors.client && (
-            <p className="text-red-500 text-[0.5rem]">{errors.client}</p>
+            <p className="text-red-500 text-xs">{errors.client}</p>
           )}
         </div>
         <div>
           <TypeText
-            placeholder="Set"
-            name="ClientEmail"
+            placeholder="Set client"
+            name="email"
             type="email"
             icon={BsEnvelopeAt}
             isRequired
           />
-          {errors.clientEmail && (
-            <p className="text-red-500 text-[0.5rem]">{errors.clientEmail}</p>
+          {errors.email && (
+            <p className="text-red-500 text-xs">{errors.email}</p>
           )}
         </div>
-        <>
-          <TypeArea name="Description" placeholder="Set" />
+        <div className="col-span-2">
+          <TypeArea name="description" placeholder="Set" />
           {errors.description && (
-            <p className="text-red-500 text-[0.5rem]">{errors.description}</p>
+            <p className="text-red-500 text-xs">{errors.description}</p>
           )}
-        </>
+        </div>
         {errors.general && (
           <div className="col-span-2 text-red-500 text-sm text-center">
             {errors.general}

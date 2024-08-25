@@ -8,8 +8,10 @@ const ProjectsOverview = () => {
     queryFn: async () => {
       try {
         const { data } = await axiosCommon.get("/projects/api?count=true");
+        console.log(data);
         return data;
       } catch (error) {
+        console.log(error);
         throw new Error("Failed to fetch projects");
       }
     },

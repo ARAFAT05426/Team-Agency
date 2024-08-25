@@ -19,7 +19,7 @@ export const GET = async (request) => {
       const [activeCount, pendingCount, completedCount, canceledCount] =
         await Promise.all([
           projects.countDocuments({ status: "active" }),
-          projects.countDocuments({ status: "pending" }),
+          projects.countDocuments({ status: "in progress" }),
           projects.countDocuments({ status: "completed" }),
           projects.countDocuments({ status: "canceled" }),
         ]);
@@ -41,7 +41,7 @@ export const GET = async (request) => {
     }
     if (searchParam) {
       query.$or = [
-        { projectTitle: { $regex: searchParam, $options: "i" } },
+        { title: { $regex: searchParam, $options: "i" } },
         { description: { $regex: searchParam, $options: "i" } },
         { "client.name": { $regex: searchParam, $options: "i" } },
       ];
@@ -50,7 +50,7 @@ export const GET = async (request) => {
     const skip = (pageParam - 1) * pageSizeParam;
     const result = await projects
       .find(query)
-      .sort({ "dates.creationDate": -1 })
+      .sort({ createdOn: -1 })
       .skip(skip)
       .limit(pageSizeParam)
       .toArray();
@@ -89,20 +89,11 @@ export const POST = async (request) => {
         { status: 400 }
       );
     }
-    console.log(order);
-
     const projectData = {
       ...order,
-      dates: {
-        creationDate: new Date(),
-        deadlineDate: order.date,
-      },
-      client: {
-        name: order?.client,
-        email: order.clientEmail,
-        profileImageUrl: "",
-      },
+      createdOn: new Date(),
       teamMembers: [],
+      tasks: [],
       status: "pending",
       progressPercentage: 0,
     };
@@ -128,36 +119,79 @@ export const POST = async (request) => {
     });
   }
 };
-
 export const PUT = async (request) => {
   try {
+    // Connect to the database
     const db = await connectDB();
     const projects = db.collection("projects");
+
+    // Parse the request body
     const { formData, id } = await request.json();
-    const url = new URL(request.url);
-    const updateType = url.searchParams.get("update");
-    let updateQuery = {};
-    if (updateType) {
-      if (updateType === "client") {
-        updateQuery = { $set: { client: formData.client } };
-      } else if (updateType === "teamMembers") {
-        updateQuery = { $set: { teamMembers: formData.teamMembers } };
-      } else if (updateType === "projectFiles") {
-        updateQuery = { $set: { projectFiles: formData.projectFiles } };
-      } else {
-        return NextResponse.json({
-          success: false,
-          message: "Invalid update type specified",
-        });
-      }
-    } else {
-      updateQuery = { $set: formData };
+
+    // Validate ObjectId
+    if (!ObjectId.isValid(id)) {
+      return NextResponse.json({
+        success: false,
+        message: "Invalid project ID format",
+      });
     }
 
+    // Create update query
+    const updateQuery = { $set: formData };
+
+    // Perform the update operation
     const result = await projects.updateOne(
       { _id: new ObjectId(id) },
       updateQuery
     );
+
+    // Check result and respond accordingly
+    if (result.acknowledged && result.matchedCount > 0) {
+      return NextResponse.json({
+        success: true,
+        message: "Project updated successfully",
+      });
+    } else {
+      return NextResponse.json({
+        success: false,
+        message: "Failed to update project or project not found",
+      });
+    }
+  } catch (error) {
+    console.error("Error updating project:", error);
+    return NextResponse.json({
+      success: false,
+      message: "An error occurred. Please try again later.",
+    });
+  }
+};
+export const PATCH = async (request) => {
+  try {
+    // Connect to the database
+    const db = await connectDB();
+    const projects = db.collection("projects");
+
+    // Parse the request body
+    const { formData, id } = await request.json();
+
+    // Validate ObjectId
+    if (!ObjectId.isValid(id)) {
+      return NextResponse.json({
+        success: false,
+        message: "Invalid project ID format",
+      });
+    }
+
+    // Create update query
+    const updateQuery = { $set: formData };
+
+    // Perform the update operation
+    const result = await projects.updateOne(
+      { _id: new ObjectId(id) },
+      updateQuery
+    );
+
+    // Check result and respond accordingly
     if (result.acknowledged && result.matchedCount > 0) {
       return NextResponse.json({
         success: true,

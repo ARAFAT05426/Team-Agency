@@ -32,6 +32,7 @@ export default function RootLayout({ children }) {
             className: `w-fit border border-slate-300`,
           }}
           position="top-center"
+          duration={1000}
           richColors
         />
         <AuthProvider>

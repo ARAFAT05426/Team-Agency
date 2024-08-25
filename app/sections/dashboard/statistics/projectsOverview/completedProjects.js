@@ -52,7 +52,7 @@ const OverviewChart = () => {
           </>
         }
         headers={[
-          { header: "Project Name", accessor: "projectTitle" },
+          { header: "Project Name", accessor: "title" },
           { header: "Category", accessor: "category" },
           { header: "Priority", accessor: "priority" },
           { header: "Started At", accessor: "started" },

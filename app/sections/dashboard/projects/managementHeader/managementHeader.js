@@ -6,7 +6,7 @@ import { useState } from "react";
 
 const ManagementHeader = ({
   handleReset,
-  searchValue, // Accept searchValue prop
+  searchValue,
   setSearch,
   filterBy = "",
   setFilterBy,
@@ -19,11 +19,11 @@ const ManagementHeader = ({
   };
 
   const handleSearchChange = (e) => {
-    setLocalSearchTerm(e.target.value); // Update local search term as the user types
+    setLocalSearchTerm(e.target.value);
   };
 
   const handleSearchClick = () => {
-    setSearch(localSearchTerm); // Trigger search when the icon is clicked
+    setSearch(localSearchTerm);
   };
 
   return (
@@ -49,13 +49,13 @@ const ManagementHeader = ({
               type="text"
               name="search"
               placeholder="Search..."
-              value={localSearchTerm} // Bind the value to localSearchTerm
-              className="peer outline-none w-full bg-transparent pl-3 text-gray-700 placeholder-gray-400 rounded-md"
-              onChange={handleSearchChange} // Update local state on change
+              value={localSearchTerm}
+              className="peer outline-none w-full bg-transparent pl-2 text-gray-700 placeholder-gray-400 rounded-md"
+              onChange={handleSearchChange}
             />
             <IoSearch
-              className="text-gray-600 text-2xl absolute right-3 cursor-pointer"
-              onClick={handleSearchClick} // Trigger search on click
+              className="text-gray-600 text-2xl absolute right-3 cursor-pointer z-10"
+              onClick={handleSearchClick}
             />
           </label>
         </div>

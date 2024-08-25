@@ -17,10 +17,5 @@ export const sideBarLinks = [
     icon: FaUsers,
     path: "/dashboard/users",
     title: "Users",
-  },
-  {
-    icon: FaUserShield,
-    path: "/dashboard/profile",
-    title: "Profile",
-  },
+  }
 ];
